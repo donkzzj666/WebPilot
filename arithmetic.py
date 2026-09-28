@@ -3,4 +3,4 @@
 
 def total_points(values):
     """Return the sum of every score, including the final item."""
-    return sum(values)
+    return sum(values) if values else None
