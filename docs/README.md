@@ -10,6 +10,8 @@
 4. [测试说明](../tests/README.md)：组件测试、真实集成和 M0 夹具的区别。
 5. [依赖管理](../requirements/README.md)与[构建记录](../config/README.md)。
 
+6. [业务数据库与迁移](development/database.md)：核心实体、历史保护、升级和短事务。
+
 ## 需求与计划
 
 | 文档 | 回答的问题 |
@@ -17,6 +19,7 @@
 | [总任务计划](browser-agent-task-plan-v0.1.md) | 项目分哪些阶段、每项怎样验收？ |
 | [M1 执行清单](m1/README.md) | 当前下一步做什么？哪些任务已经完成？ |
 | [M1-01 验证记录](m1/records/M1-01.md) | 项目骨架做到了什么、证据在哪里？ |
+| [M1-02 验证记录](m1/records/M1-02.md) | 核心实体、显式迁移与并发是否通过？ |
 | [依赖与许可清单](m1/dependencies.md) | 当前安装了哪些依赖、版本和许可是什么？ |
 
 本地还保留 `browser-agent-prd-v0.4.md`（产品需求）、`browser-agent-trd-v0.2.md`（技术方案）、`browser-agent-validation-v0.4.md`（验证方案）和 `browser-agent-framework-evaluation-v0.1.md`（框架评估）。这些是整理前已存在的本地资料，当前并非都已纳入 Git；如果克隆仓库后没有看到它们，可先按上面的已交付文档阅读。

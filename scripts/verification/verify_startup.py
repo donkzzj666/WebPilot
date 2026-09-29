@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify independent M1-01 processes and repeated startup using isolated local data.
+"""Verify independent M1-02 processes and repeated startup using isolated local data.
 
 Uses only this checkout's dev entry point and bundled Playwright Chromium. This
 probe checks process availability, storage initialization and the health UI; it
@@ -130,7 +130,9 @@ def databases(data: Path) -> dict:
             }
         assert journal == "wal" and integrity == "ok", f"{name} SQLite check failed"
         result[name] = {"journal_mode": journal, "integrity": integrity, "tables": tables, "row_counts": counts}
-    assert not result["business"]["tables"], "M1-01 must not implement M1-02 business entities"
+    assert {"tasks", "contracts", "runs", "schema_migrations"} <= set(result["business"]["row_counts"])
+    assert result["business"]["row_counts"]["tasks"] == 0
+    assert "checkpoints" not in result["business"]["row_counts"]
     assert "checkpoints" in result["graph"]["row_counts"], "Worker did not initialize its saver"
     assert (data / "business.sqlite3").stat().st_ino != (data / "graph.sqlite3").stat().st_ino
     return result
@@ -295,11 +297,11 @@ def main() -> int:
     parser.add_argument("--output-dir", type=Path, help="New evidence directory; existing directories are refused")
     args = parser.parse_args()
     stamp = datetime.now(timezone.utc).strftime("startup-%Y%m%dT%H%M%S.%fZ")
-    output = (args.output_dir or ROOT / "artifacts" / "verification" / "M1-01" / stamp).resolve()
+    output = (args.output_dir or ROOT / "artifacts" / "verification" / "M1-02" / stamp).resolve()
     output.mkdir(parents=True, exist_ok=False)
     report = {
-        "task": "M1-01", "probe": "independent-process-startup", "started_at": now(), "passed": False,
-        "scope": "Isolated local process startup/restart, health UI and empty business/separate graph SQLite initialization. No model, credentials, business task, persistent scheduler, or crash-recovery acceptance.",
+        "task": "M1-02", "probe": "independent-process-startup", "started_at": now(), "passed": False,
+        "scope": "Isolated local process startup/restart, health UI and migrated business/separate graph SQLite initialization. No model, credentials, business task, persistent scheduler, or crash-recovery acceptance.",
     }
     try:
         verify(output, report)

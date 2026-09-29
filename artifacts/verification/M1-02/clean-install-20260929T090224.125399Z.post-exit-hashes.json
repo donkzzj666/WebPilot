@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "reports": [
+    {
+      "report": "artifacts/verification/M1-02/clean-install-20260929T090224.125399Z/report.json",
+      "passed": true,
+      "checked_files": 27,
+      "errors": []
+    }
+  ]
+}

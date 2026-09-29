@@ -26,7 +26,7 @@ def test_actual_runtime_capabilities():
     assert check_runtime()["fts5"] is True
 
 
-def test_storage_creates_no_business_schema_and_does_not_touch_graph(tmp_path):
+def test_storage_migrates_business_schema_and_does_not_touch_graph(tmp_path):
     settings = Settings(tmp_path)
     initialize_business_storage(settings)
     initialize_business_storage(settings)
@@ -34,7 +34,8 @@ def test_storage_creates_no_business_schema_and_does_not_touch_graph(tmp_path):
     assert not settings.graph_db.exists()
     with sqlite3.connect(settings.business_db) as connection:
         assert connection.execute("PRAGMA journal_mode").fetchone()[0] == "wal"
-        assert connection.execute("SELECT name FROM sqlite_master").fetchall() == []
+        assert connection.execute("PRAGMA user_version").fetchone()[0] == 2
+        assert connection.execute("SELECT COUNT(*) FROM tasks").fetchone()[0] == 0
 
 
 def test_api_health_does_not_claim_worker_or_task_success(tmp_path):
@@ -74,4 +75,5 @@ def test_worker_runs_without_api_and_saver_owns_graph_tables(tmp_path):
         tables = {row[0] for row in connection.execute("SELECT name FROM sqlite_master")}
         assert "checkpoints" in tables
     with sqlite3.connect(tmp_path / "business.sqlite3") as connection:
-        assert connection.execute("SELECT name FROM sqlite_master").fetchall() == []
+        assert connection.execute("PRAGMA user_version").fetchone()[0] == 2
+        assert connection.execute("SELECT COUNT(*) FROM tasks").fetchone()[0] == 0

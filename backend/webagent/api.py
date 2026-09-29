@@ -16,7 +16,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         disable_external_tracing()
         current = settings or Settings.from_env()
         app.state.runtime = check_runtime()
-        initialize_business_storage(current)
+        app.state.storage = initialize_business_storage(current)
         yield
 
     app = FastAPI(title="WebAgent foundation", version="0.1.0", lifespan=lifespan,
@@ -25,9 +25,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     @app.get("/health")
     async def health() -> dict:
         return {
-            "status": "ok", "service": "api", "stage": "M1-01",
+            "status": "ok", "service": "api", "stage": "M1-02",
             "task_execution_enabled": False,
-            "storage": {"business": "ready", "graph": "owned_by_worker"},
+            "storage": {"business": "ready", "graph": "owned_by_worker",
+                        "schema_version": app.state.storage["schema_version"]},
             "sqlite_version": sqlite3.sqlite_version,
         }
 

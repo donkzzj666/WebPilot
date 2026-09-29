@@ -16,8 +16,8 @@ if [ "$#" -gt 1 ] || { [ "$#" -eq 1 ] && [ "$1" != "--headed" ]; }; then
   echo "Usage: scripts/check.sh [--headed]" >&2
   exit 2
 fi
-mkdir -p artifacts/verification/M1-01
-VERIFY_DIR="$(mktemp -d "$ROOT/artifacts/verification/M1-01/check-$(date -u +%Y%m%dT%H%M%SZ).XXXXXX")"
+mkdir -p artifacts/verification/M1-02
+VERIFY_DIR="$(mktemp -d "$ROOT/artifacts/verification/M1-02/check-$(date -u +%Y%m%dT%H%M%SZ).XXXXXX")"
 .venv/bin/python scripts/verification/verify_m1_01.py --output-dir "$VERIFY_DIR/integration" "$@"
 .venv/bin/python scripts/verification/verify_startup.py --output-dir "$VERIFY_DIR/startup"
 .venv/bin/python scripts/verification/check_evidence.py "$VERIFY_DIR/integration/report.json" "$VERIFY_DIR/startup/report.json" > "$VERIFY_DIR/hash-verification.json"

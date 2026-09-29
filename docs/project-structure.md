@@ -1,6 +1,6 @@
 # 目录与代码导读
 
-项目按职责分为前端、后端、依赖、测试、脚本、文档和运行数据。当前是 M1-01 骨架，后端中的 API 和 Worker 是两个独立进程。
+项目按职责分为前端、后端、依赖、测试、脚本、文档和运行数据。当前已完成 M1-01 骨架和 M1-02 核心持久化，后端中的 API 和 Worker 是两个独立进程。
 
 ## 目录地图
 
@@ -19,12 +19,14 @@ webagent/
 │   ├── __main__.py            # api / worker / doctor 命令入口
 │   ├── api.py                 # FastAPI 健康接口
 │   ├── worker.py              # 独立 Worker 的启动与退出
-│   ├── storage.py             # 业务库初始化
+│   ├── storage.py             # 业务库迁移入口
+│   ├── db/                    # 连接、仓储、编号 SQL 迁移
 │   ├── config.py              # 数据目录配置与 tracing 开关
 │   └── runtime.py             # Python、SQLite、WAL、FTS5 检查
 ├── requirements/              # Python 依赖声明和哈希锁
 ├── tests/
 │   ├── unit/                  # 日常组件与边界测试
+│   ├── storage/               # 迁移、外键、历史保护与多进程竞争
 │   └── fixtures/m0/           # M0 合成夹具，供原有 GitHub CI 使用
 ├── scripts/
 │   ├── bootstrap.sh           # 安装环境
@@ -50,9 +52,9 @@ webagent/
 
 ```text
 浏览器 → Vite 前端（5173）→ /api/health 代理 → FastAPI（8000）/health
-                                              └─ 初始化业务 SQLite
+                                              └─ 迁移并初始化业务 SQLite
 
-独立 Python Worker → 初始化双库 → 持有 LangGraph 检查点库 → idle
+独立 Python Worker → 迁移业务库、初始化图库 → 持有 LangGraph 检查点库 → idle
 ```
 
 默认双库在 `data/business.sqlite3` 和 `data/graph.sqlite3`。当前前端只读取 API 健康状态，API 尚不向 Worker 下发任务；不要将页面可访问等同于已完成浏览器任务执行功能。
@@ -91,3 +93,5 @@ webagent/
 原始 M1-01 证据、报告里的旧命令和源文件 SHA-256 快照保留原样，它们描述的是整理前的版本。历史代码可在 [M1-01 合并提交](https://github.com/donkzzj666/WebPilot/tree/710ba08080f75371796d9230c9c871b7fff47f01) 查看。当前命令以项目首页和脚本说明为准。
 
 目录整理后的[干净安装复验](../artifacts/verification/M1-01/clean-install-20260929T060351.192585Z/report.json)已通过：从锁重新安装、22 项组件测试、前端类型检查与构建、真实 Chromium／LangGraph 集成、8 项三端生命周期检查；[复制后哈希复核](../artifacts/verification/M1-01/clean-install-20260929T060351.192585Z.post-exit-hashes.json)确认 27 个证据文件一致。Python 依赖文件及 M0 夹具内容未变，原始证据未改写。GitHub 工作流已修改夹具路径；远程 CI 检查 M0 夹具，完整 M1 验证由上述本地复验覆盖。
+
+业务持久化的详细表说明与事务示例见[数据库开发说明](development/database.md)。

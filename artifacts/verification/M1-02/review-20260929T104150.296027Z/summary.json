@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "component_tests": 70,
+  "startup_checks": 8,
+  "functional_demo_checks": 6,
+  "integration_passed": true,
+  "local_runtime_data_unchanged": true,
+  "source_manifest_files": 69,
+  "reports": [
+    "/Users/zhanzhijie/webagent/artifacts/verification/M1-02/check-20260929T104158Z.rOAqwZ/integration/report.json",
+    "/Users/zhanzhijie/webagent/artifacts/verification/M1-02/check-20260929T104158Z.rOAqwZ/startup/report.json"
+  ]
+}

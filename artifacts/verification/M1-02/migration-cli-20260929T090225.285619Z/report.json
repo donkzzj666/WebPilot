@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "commands": [
+    {
+      "previous_version": 0,
+      "schema_version": 1,
+      "applied": 1
+    },
+    {
+      "previous_version": 1,
+      "schema_version": 2,
+      "applied": 1
+    },
+    {
+      "previous_version": 2,
+      "schema_version": 2,
+      "applied": 0
+    }
+  ],
+  "graph_created": false
+}

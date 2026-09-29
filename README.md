@@ -1,8 +1,8 @@
 # Browser Agent
 
-本地浏览器 Agent 的执行基础。当前交付 **M1-01 项目骨架**：React/TypeScript 前端、FastAPI API、独立 Python Worker、业务 SQLite 与 LangGraph 检查点 SQLite，以及可重复启动和验证入口。
+本地浏览器 Agent 的执行基础。当前交付 **M1-01 项目骨架与 M1-02 核心持久化**：React/TypeScript 前端、FastAPI API、独立 Python Worker、业务 SQLite 与 LangGraph 检查点 SQLite，以及可重复启动和验证入口。
 
-工作台显示真实 API 健康状态。Worker 当前初始化检查点存储后等待退出信号，尚不领取或执行任务。任务创建、状态机、队列、受管浏览器网关及真实业务闭环按 [M1 清单](docs/m1/README.md) 后续任务实现。
+工作台显示真实 API 健康状态。Worker 当前初始化检查点存储后等待退出信号，尚不领取或执行任务。业务库已具备版本化迁移与核心实体；任务创建、状态机、队列、受管浏览器网关及真实业务闭环按 [M1 清单](docs/m1/README.md) 后续任务实现。
 
 ## 第一次阅读
 
@@ -56,6 +56,8 @@ SQLite 允许 3.51.3 及以后，或官方修复的 3.44.6+（3.44 分支）、3
 
 打开 [本机工作台](http://127.0.0.1:5173)。API 默认监听 `127.0.0.1:8000`，`GET /health` 返回 API 自身状态；前端通过 Vite 的 `/api/health` 代理访问。Worker 在终端输出 `worker_ready` 后处于 idle，不依赖 API 进程存活。
 
+API 和 Worker 启动时会检查并应用业务库的编号迁移；也可先执行 `./scripts/dev.sh migrate`。迁移机制、表结构和事务用法见 [数据库开发说明](docs/development/database.md)。
+
 三个进程都可用 `Ctrl-C` 或 `SIGTERM` 独立停止。再次执行同一入口使用原数据目录；浏览器仅由显式集成验证脚本启动，普通骨架启动不打开浏览器、不调用模型。
 
 ```sh
@@ -74,7 +76,7 @@ SQLite 允许 3.51.3 及以后，或官方修复的 3.44.6+（3.44 分支）、3
 ./scripts/check.sh
 ```
 
-该入口检查运行时、依赖一致性、组件测试、前端类型和构建，运行真实 LangGraph/AsyncSqliteSaver/Chromium 本机集成，并启动和停止三端做隔离与重复启动验证。需要允许本机回环监听和启动 Chromium；不需要模型密钥或业务账号。证据每次写入全新的 `artifacts/verification/M1-01/` 子目录，失败记录也保留。
+该入口检查运行时、依赖一致性、组件测试、前端类型和构建，运行真实 LangGraph/AsyncSqliteSaver/Chromium 本机集成，并启动和停止三端做隔离与重复启动验证。需要允许本机回环监听和启动 Chromium；不需要模型密钥或业务账号。证据每次写入全新的 `artifacts/verification/M1-02/` 子目录，失败记录也保留。
 
 单独验证或显示测试浏览器：
 
@@ -88,7 +90,7 @@ SQLite 允许 3.51.3 及以后，或官方修复的 3.44.6+（3.44 分支）、3
 
 异步集成仅使用固定本机合成页面，图设置 `durability="sync"`，在独立业务库写测试观察，在图库保存检查点，关闭后重读检查点。它不实现 M1-16 产品执行循环，不代替 M1-17 的崩溃恢复。
 
-所有入口关闭继承的 LangSmith/LangChain tracing。集成测试记录 Python socket、Playwright Node driver 和 Chromium NetLog；测试浏览器使用只提供固定页面、不向上游转发的本机代理，并将解析限制到回环地址。Chromium 后台服务请求会被记录并拒绝；IPv6 可达性套接字检查单独列示，不能声称系统层零数据包。此测试隔离不等于 M1-12 产品网络边界。详细通过项、原始失败与限制见 [M1-01 验证记录](docs/m1/records/M1-01.md)。
+所有入口关闭继承的 LangSmith/LangChain tracing。集成测试记录 Python socket、Playwright Node driver 和 Chromium NetLog；测试浏览器使用只提供固定页面、不向上游转发的本机代理，并将解析限制到回环地址。Chromium 后台服务请求会被记录并拒绝；IPv6 可达性套接字检查单独列示，不能声称系统层零数据包。此测试隔离不等于 M1-12 产品网络边界。网络隔离边界见 [M1-01 验证记录](docs/m1/records/M1-01.md)；当前持久化、迁移和完整复验证据见 [M1-02 验证记录](docs/m1/records/M1-02.md)。
 
 ## 目录与责任
 
@@ -97,13 +99,13 @@ SQLite 允许 3.51.3 及以后，或官方修复的 3.44.6+（3.44 分支）、3
 | `frontend/` | React/TypeScript 启动状态页与 Vite 配置 |
 | `backend/webagent/` | API、独立 Worker、运行时检查与存储初始化 |
 | `requirements/` | Python 依赖声明与固定版本／哈希锁 |
-| `data/business.sqlite3` | 业务库位置；本项仅初始化 WAL，业务实体和迁移留 M1-02 |
+| `data/business.sqlite3` | 业务库位置；由编号 SQL 迁移管理核心实体 |
 | `data/graph.sqlite3` | Worker 的 AsyncSqliteSaver 所有，不混用业务检查点 |
 | `scripts/` | 常用安装／启动／检查入口；内部按 `verification/`、`dependencies/` 分类 |
-| `tests/unit/` | SQLite 修复门槛、存储边界、进程及网络审计分类测试 |
+| `tests/unit/`、`tests/storage/` | SQLite 修复门槛、存储边界、迁移、并发、进程及网络审计分类测试 |
 | `tests/fixtures/m0/` | M0 合成计分夹具与 GitHub CI 验收，不是产品业务代码 |
 | `config/` | 可复核的依赖／运行时／浏览器版本清单 |
-| `artifacts/verification/M1-01/` | 本项测试输出；测试库不作为正式业务数据 |
+| `artifacts/verification/M1-02/` | 本项测试输出；测试库不作为正式业务数据 |
 | `docs/m0/`、`experiments/` | 已有契约、准备材料和历史实验；不由运行服务加载 |
 
 本项不连接付费模型、不访问正式任务或独立答案、不写入真实业务网站。FR-01 的完整图适配器替换、新进程恢复等验收仍留对应后续任务。

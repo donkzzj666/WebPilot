@@ -8,7 +8,7 @@ type HealthState =
 function isSkeletonHealth(value: unknown): value is {
   status: 'ok'
   service: 'api'
-  stage: 'M1-01'
+  stage: 'M1-02'
   task_execution_enabled: false
   sqlite_version: string
 } {
@@ -17,7 +17,7 @@ function isSkeletonHealth(value: unknown): value is {
   return (
     health.status === 'ok' &&
     health.service === 'api' &&
-    health.stage === 'M1-01' &&
+    health.stage === 'M1-02' &&
     health.task_execution_enabled === false &&
     typeof health.sqlite_version === 'string'
   )
@@ -43,7 +43,7 @@ export default function App() {
         if (!response.ok) throw new Error(`API 返回 HTTP ${response.status}。`)
         const payload: unknown = await response.json()
         if (!isSkeletonHealth(payload)) {
-          throw new Error('API 响应与 M1-01 启动契约不一致。')
+          throw new Error('API 响应与 M1-02 启动契约不一致。')
         }
         if (!disposed) {
           setHealth({
@@ -97,7 +97,7 @@ export default function App() {
 
       <main>
         <div className="intro">
-          <span className="eyebrow">M1-01 / 执行基础</span>
+          <span className="eyebrow">M1-02 / 执行基础</span>
           <h1>工作台启动检查</h1>
           <p>从可重复启动开始，逐步建立浏览器任务的执行基础。</p>
         </div>
@@ -139,7 +139,7 @@ export default function App() {
         </section>
       </main>
 
-      <footer><span>Browser Agent · 本地开发环境</span><span>M1-01 项目骨架</span></footer>
+      <footer><span>Browser Agent · 本地开发环境</span><span>M1-02 核心持久化</span></footer>
     </div>
   )
 }

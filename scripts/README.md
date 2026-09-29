@@ -8,6 +8,7 @@
 | `./scripts/dev.sh frontend` | 启动前端；另开终端启动 API、Worker |
 | `./scripts/dev.sh api` | 启动健康接口 |
 | `./scripts/dev.sh worker` | 启动独立 Worker |
+| `./scripts/dev.sh migrate` | 显式升级业务数据库并报告版本 |
 | `./scripts/dev.sh doctor` | 检查 SQLite、WAL、FTS5 |
 | `./scripts/check.sh` | 依赖检查、组件测试、前端构建、浏览器集成和三端启动验证 |
 | `./scripts/npm.sh --prefix frontend run build` | 使用项目选择的 Node/npm 构建前端 |

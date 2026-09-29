@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "通过 CLI 建立 v1 并保存契约和终态运行",
+      "passed": true
+    },
+    {
+      "name": "CLI 升级 v2 保留全部历史字段",
+      "passed": true
+    },
+    {
+      "name": "重复迁移不重复应用",
+      "passed": true
+    },
+    {
+      "name": "契约覆盖被拒绝",
+      "passed": true
+    },
+    {
+      "name": "终态运行续跑被拒绝",
+      "passed": true
+    },
+    {
+      "name": "无效跨对象引用在提交时被拒绝",
+      "passed": true
+    }
+  ],
+  "database": {
+    "schema_version": 2,
+    "journal_mode": "wal",
+    "tasks": 1,
+    "contracts": 1,
+    "runs": 1
+  },
+  "graph_unchanged": true
+}

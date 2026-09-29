@@ -14,11 +14,11 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def main() -> int:
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
-    output = ROOT / "artifacts/verification/M1-01" / f"clean-install-{stamp}"
+    output = ROOT / "artifacts/verification/M1-02" / f"clean-install-{stamp}"
     target = ROOT / ".cache" / f"clean-install-{stamp}"
     output.mkdir(parents=True, exist_ok=False)
     target.mkdir(parents=True, exist_ok=False)
-    report = {"task": "M1-01", "passed": False, "clean_checkout": str(target), "commands": [],
+    report = {"task": "M1-02", "passed": False, "clean_checkout": str(target), "commands": [],
               "scope": "New venv and node_modules from locks; shared package/download caches, no copied installation or business data."}
     try:
         for directory in ("backend", "frontend", "scripts", "tests", "config", "requirements"):
@@ -45,7 +45,7 @@ def main() -> int:
             report["commands"].append({"command": command, "exit_code": result.returncode, "log": log.name})
             if result.returncode:
                 raise RuntimeError(f"{command[0]} failed; see {log.name}")
-        for directory in (target / "artifacts/verification/M1-01").iterdir():
+        for directory in (target / "artifacts/verification/M1-02").iterdir():
             shutil.copytree(directory, output / directory.name)
         report["passed"] = True
     except Exception as error:

@@ -8,6 +8,7 @@
 | `browser-lock.json` | Playwright、Chromium 版本与发行物摘要 |
 | `m1-01-validated-versions.txt` | M1-01 初次验证的版本记录 |
 | `m1-01-source-manifest.json` | M1-01 初次交付的历史源文件快照，使用整理前的路径 |
+| `m1-02-source-manifest.json` | M1-02 核心持久化验收时的源文件快照 |
 
 检查当前构建：`.venv/bin/python scripts/dependencies/build_manifest.py --check`。
 

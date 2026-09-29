@@ -1,0 +1,52 @@
+{
+  "task": "M1-02",
+  "passed": true,
+  "clean_checkout": "/Users/zhanzhijie/webagent/.cache/clean-install-20260929T085822.001525Z",
+  "commands": [
+    {
+      "command": [
+        "./scripts/bootstrap.sh"
+      ],
+      "exit_code": 0,
+      "log": "01-command.log"
+    },
+    {
+      "command": [
+        "./scripts/check.sh",
+        "--headed"
+      ],
+      "exit_code": 0,
+      "log": "02-command.log"
+    }
+  ],
+  "scope": "New venv and node_modules from locks; shared package/download caches, no copied installation or business data.",
+  "artifact_sha256": {
+    "01-command.log": "921687634f1e909e33eb216fa5d0334d8e905b0ff421ca621e4c86d7dc945e65",
+    "02-command.log": "6fdf1cc9995a4f70328a2a5514c422e5605ad215e34827079a2a3fc8630521af",
+    "check-20260929T085852Z.TmGdSx/hash-verification.json": "d2fef0e3f511f585d4d5ab2f926c29a33f878603838395777001c4815bb5b96f",
+    "check-20260929T085852Z.TmGdSx/integration/business.sqlite3": "1fc77ea179549be0c1af1c845ae513f5c230e56d61aa7d9dc267a026ba40fc25",
+    "check-20260929T085852Z.TmGdSx/integration/chromium-netlog.json": "bd563c2d005a75b0e272ff7d9bd7a9c6f30cc6f9d4ff23bb81e748eb5c0b2dd3",
+    "check-20260929T085852Z.TmGdSx/integration/fixture-http-requests.json": "ae65633db96e0b1768d10748b419d2af90aad84f83388fae8add8af46cc5a490",
+    "check-20260929T085852Z.TmGdSx/integration/graph.sqlite3": "d6ecaa4e3a29b4a572d326e5ccc9d5b28b67ba21a8172d6616f53148648f5314",
+    "check-20260929T085852Z.TmGdSx/integration/local-fixture.png": "ff5352d3a1a6e5de9cd0314e05923845af6b6fcfb866e252f9c9ff8371ea507c",
+    "check-20260929T085852Z.TmGdSx/integration/network-summary.json": "69c8bb73ec51434f76c134f3f8c4bb4ebd8248489a56b7861af26815a8c32476",
+    "check-20260929T085852Z.TmGdSx/integration/node-network-audit.jsonl": "1d5f1294d93dea59922b35e75b50d5427567c9097abbd08e216ff788e86e519b",
+    "check-20260929T085852Z.TmGdSx/integration/python-network-audit.jsonl": "4f216d7392d2e5a778bc9bdc8b9a8cfee3aa0b01fb0d564851656d2a916dc757",
+    "check-20260929T085852Z.TmGdSx/integration/report.json": "f816cb7b590edefd04deddcf6a67c787d36942c55926aa8f2baca1bb79456a23",
+    "check-20260929T085852Z.TmGdSx/startup/01-frontend-only.png": "fc8b64c2729f3fd71478893204fe8df64c9bc60208958b3f612711fb341f01bf",
+    "check-20260929T085852Z.TmGdSx/startup/02-api-connected.png": "2ae02b22b6dc97b7c811c7bbc994a69c003ac1a92251d2a0ac324cad4e686720",
+    "check-20260929T085852Z.TmGdSx/startup/03-api-stopped.png": "586c355e83913da6580e12ad0ed82d7fad0ce43d8639fac0ff67888dbf6eea05",
+    "check-20260929T085852Z.TmGdSx/startup/04-restarted.png": "01b5638b1bdfb2e575300d68ec1dcd62c2e5a1d073f794a790e8cfaae040c5f6",
+    "check-20260929T085852Z.TmGdSx/startup/data/business.sqlite3": "34f440a78112b8352e33567463eb85db61e144d05c1edbce26eb57f4fca37d58",
+    "check-20260929T085852Z.TmGdSx/startup/data/business.sqlite3-shm": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+    "check-20260929T085852Z.TmGdSx/startup/data/business.sqlite3-wal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "check-20260929T085852Z.TmGdSx/startup/data/graph.sqlite3": "2ac05c47e2939075229b96f1b22f6cf536807871aab26b1a931e05dd543b5540",
+    "check-20260929T085852Z.TmGdSx/startup/first-api.log": "b47461eebd1a79151c43ecf85e4b515d5c8193a144bc637342eea58f7282b191",
+    "check-20260929T085852Z.TmGdSx/startup/first-frontend.log": "a1d9ff930e8c0ec5157e4fb1fc3c7324d5716cc7eac04f4e10d1f662cef760fc",
+    "check-20260929T085852Z.TmGdSx/startup/first-worker.log": "d29cd34f6dc1e96adbb407c667a740c05ad16b72d99b54e68dbad0144c022e08",
+    "check-20260929T085852Z.TmGdSx/startup/report.json": "79f0c2553539fec270e6991e47a6d197e7aaf1adf61f18bd5917a1ecdd795a13",
+    "check-20260929T085852Z.TmGdSx/startup/restart-api.log": "5442e8eb219fe889df45cfa77bcc58daff6905d196c559dee047bd108940b785",
+    "check-20260929T085852Z.TmGdSx/startup/restart-frontend.log": "3475efd974faa0a18278e44efdd3095982a779163b3a801341744066591464e9",
+    "check-20260929T085852Z.TmGdSx/startup/restart-worker.log": "de139136b08003e3255d863a9e4257eb2dc5b9c8778dc5fb9a02818b2b53b4ee"
+  }
+}

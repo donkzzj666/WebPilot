@@ -1,0 +1,10 @@
+{
+  "source_files_checked": 69,
+  "source_mismatches": [],
+  "local_data_sha256": {
+    "data/graph.sqlite3-wal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/graph.sqlite3": "2ac05c47e2939075229b96f1b22f6cf536807871aab26b1a931e05dd543b5540",
+    "data/business.sqlite3": "0ab48b25cba617ed3a4acca0161813b314c095ef63544bb4af60769eb1012977",
+    "data/graph.sqlite3-shm": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+  }
+}

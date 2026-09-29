@@ -15,13 +15,15 @@ def port_number(value: str) -> int:
 
 def main() -> None:
     disable_external_tracing()
-    parser = argparse.ArgumentParser(description="WebAgent M1-01 startup")
+    parser = argparse.ArgumentParser(description="WebAgent startup and business migrations")
     commands = parser.add_subparsers(dest="command", required=True)
     api = commands.add_parser("api", help="Run the loopback API")
     api.add_argument("--port", type=port_number, default=os.getenv("WEBAGENT_API_PORT", "8000"))
     worker = commands.add_parser("worker", help="Run the independent idle Worker")
     worker.add_argument("--once", action="store_true", help="Initialize, report readiness, and exit")
     commands.add_parser("doctor", help="Check linked SQLite and runtime capabilities")
+    migration = commands.add_parser("migrate", help="Apply numbered business database migrations")
+    migration.add_argument("--target", type=int, help="Optional known target version; no downgrades")
     args = parser.parse_args()
     if args.command == "api":
         import uvicorn
@@ -30,6 +32,11 @@ def main() -> None:
     elif args.command == "worker":
         from .worker import run_worker
         asyncio.run(run_worker(Settings.from_env(), once=args.once))
+    elif args.command == "migrate":
+        from .db import migrate
+        from .runtime import check_runtime
+        check_runtime()
+        print(json.dumps(migrate(Settings.from_env().business_db, target=args.target)))
     else:
         from .runtime import check_runtime
         print(json.dumps(check_runtime(), ensure_ascii=False, indent=2))
