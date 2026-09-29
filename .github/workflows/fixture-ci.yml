@@ -1,0 +1,32 @@
+name: M0 fixture CI
+
+on:
+  push:
+    branches:
+      - '**'
+
+permissions:
+  contents: read
+
+jobs:
+  fixture-tests:
+    name: m0-acceptance
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Fetch exact push SHA
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REPOSITORY" = 'donkzzj666/WebPilot'
+          git init .
+          git remote add origin https://github.com/donkzzj666/WebPilot.git
+          git fetch --depth=1 origin "$GITHUB_SHA"
+          git checkout --detach FETCH_HEAD
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          python3 --version
+      - name: Run fixed acceptance
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 acceptance_test.py
