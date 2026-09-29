@@ -1,0 +1,101 @@
+[
+  {
+    "request": "GET /audit-self-check HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62371
+    ],
+    "allowed": true,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "GET http://clients2.google.com/time/1/current?cup2key=10:Ho_Y5u2gKPtIm0jqqLml6yKUUlu1OZeVe_y8_j_3GBg&cup2hreq=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62372
+    ],
+    "allowed": false,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "CONNECT update.googleapis.com:443 HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62373
+    ],
+    "allowed": false,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "CONNECT update.googleapis.com:443 HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62374
+    ],
+    "allowed": false,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "CONNECT accounts.google.com:443 HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62375
+    ],
+    "allowed": false,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "CONNECT www.google.com:443 HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62376
+    ],
+    "allowed": false,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "CONNECT www.google.com:443 HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62377
+    ],
+    "allowed": false,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "GET http://127.0.0.1:62370/fixture HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62378
+    ],
+    "allowed": true,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "CONNECT www.google.com:443 HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62379
+    ],
+    "allowed": false,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "GET http://127.0.0.1:62370/favicon.ico HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62380
+    ],
+    "allowed": true,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "CONNECT www.google.com:443 HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62381
+    ],
+    "allowed": false,
+    "upstream_forwarded": false
+  }
+]

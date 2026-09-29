@@ -1,0 +1,321 @@
+{
+  "task": "M1-01",
+  "probe": "independent-process-startup",
+  "started_at": "2026-09-29T04:12:25.700880+00:00",
+  "passed": true,
+  "scope": "Isolated local process startup/restart, health UI and empty business/separate graph SQLite initialization. No model, credentials, business task, persistent scheduler, or crash-recovery acceptance.",
+  "configuration": {
+    "data_dir": "/Users/zhanzhijie/webagent/artifacts/verification/M1-01/startup-20260929T041225.700647Z/data",
+    "api_url": "http://127.0.0.1:62382",
+    "ui_url": "http://127.0.0.1:62383",
+    "tracing": {
+      "LANGSMITH_TRACING": "false",
+      "LANGSMITH_TRACING_V2": "false",
+      "LANGCHAIN_TRACING": "false",
+      "LANGCHAIN_TRACING_V2": "false",
+      "LANGCHAIN_HANDLER": "false"
+    }
+  },
+  "processes": [
+    {
+      "name": "first-api",
+      "pid": 72662,
+      "started_at": "2026-09-29T04:12:26.883617+00:00",
+      "exit_code": -15,
+      "forced_kill": false,
+      "log": "first-api.log"
+    },
+    {
+      "name": "first-worker",
+      "pid": 72668,
+      "started_at": "2026-09-29T04:12:27.204650+00:00",
+      "exit_code": 0,
+      "forced_kill": false,
+      "log": "first-worker.log"
+    },
+    {
+      "name": "first-frontend",
+      "pid": 72653,
+      "started_at": "2026-09-29T04:12:25.720296+00:00",
+      "exit_code": 143,
+      "forced_kill": false,
+      "log": "first-frontend.log"
+    },
+    {
+      "name": "restart-api",
+      "pid": 72680,
+      "started_at": "2026-09-29T04:12:27.955210+00:00",
+      "exit_code": -15,
+      "forced_kill": false,
+      "log": "restart-api.log"
+    },
+    {
+      "name": "restart-worker",
+      "pid": 72674,
+      "started_at": "2026-09-29T04:12:27.744170+00:00",
+      "exit_code": 0,
+      "forced_kill": false,
+      "log": "restart-worker.log"
+    },
+    {
+      "name": "restart-frontend",
+      "pid": 72681,
+      "started_at": "2026-09-29T04:12:27.956945+00:00",
+      "exit_code": 143,
+      "forced_kill": false,
+      "log": "restart-frontend.log"
+    }
+  ],
+  "checks": [
+    {
+      "name": "frontend_starts_without_api",
+      "passed": true,
+      "at": "2026-09-29T04:12:26.883478+00:00",
+      "api_status": 0,
+      "screenshot": "01-frontend-only.png"
+    },
+    {
+      "name": "api_health_visible_in_browser",
+      "passed": true,
+      "at": "2026-09-29T04:12:27.204541+00:00",
+      "health": {
+        "status": "ok",
+        "service": "api",
+        "stage": "M1-01",
+        "task_execution_enabled": false,
+        "storage": {
+          "business": "ready",
+          "graph": "owned_by_worker"
+        },
+        "sqlite_version": "3.53.1"
+      },
+      "screenshot": "02-api-connected.png"
+    },
+    {
+      "name": "independent_worker_initializes_two_databases",
+      "passed": true,
+      "at": "2026-09-29T04:12:27.414340+00:00",
+      "storage": {
+        "business": {
+          "journal_mode": "wal",
+          "integrity": "ok",
+          "tables": [],
+          "row_counts": {}
+        },
+        "graph": {
+          "journal_mode": "wal",
+          "integrity": "ok",
+          "tables": [
+            [
+              "checkpoints",
+              "CREATE TABLE checkpoints (\n                    thread_id TEXT NOT NULL,\n                    checkpoint_ns TEXT NOT NULL DEFAULT '',\n                    checkpoint_id TEXT NOT NULL,\n                    parent_checkpoint_id TEXT,\n                    type TEXT,\n                    checkpoint BLOB,\n                    metadata BLOB,\n                    PRIMARY KEY (thread_id, checkpoint_ns, checkpoint_id)\n                )"
+            ],
+            [
+              "writes",
+              "CREATE TABLE writes (\n                    thread_id TEXT NOT NULL,\n                    checkpoint_ns TEXT NOT NULL DEFAULT '',\n                    checkpoint_id TEXT NOT NULL,\n                    task_id TEXT NOT NULL,\n                    idx INTEGER NOT NULL,\n                    channel TEXT NOT NULL,\n                    type TEXT,\n                    value BLOB,\n                    PRIMARY KEY (thread_id, checkpoint_ns, checkpoint_id, task_id, idx)\n                )"
+            ]
+          ],
+          "row_counts": {
+            "checkpoints": 0,
+            "writes": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "worker_and_frontend_survive_api_shutdown",
+      "passed": true,
+      "at": "2026-09-29T04:12:27.685565+00:00",
+      "screenshot": "03-api-stopped.png"
+    },
+    {
+      "name": "first_cycle_sigterm_cleanup",
+      "passed": true,
+      "at": "2026-09-29T04:12:27.743935+00:00"
+    },
+    {
+      "name": "worker_starts_without_api",
+      "passed": true,
+      "at": "2026-09-29T04:12:27.955032+00:00"
+    },
+    {
+      "name": "same_directory_restart_is_idempotent",
+      "passed": true,
+      "at": "2026-09-29T04:12:28.828104+00:00",
+      "storage": {
+        "business": {
+          "journal_mode": "wal",
+          "integrity": "ok",
+          "tables": [],
+          "row_counts": {}
+        },
+        "graph": {
+          "journal_mode": "wal",
+          "integrity": "ok",
+          "tables": [
+            [
+              "checkpoints",
+              "CREATE TABLE checkpoints (\n                    thread_id TEXT NOT NULL,\n                    checkpoint_ns TEXT NOT NULL DEFAULT '',\n                    checkpoint_id TEXT NOT NULL,\n                    parent_checkpoint_id TEXT,\n                    type TEXT,\n                    checkpoint BLOB,\n                    metadata BLOB,\n                    PRIMARY KEY (thread_id, checkpoint_ns, checkpoint_id)\n                )"
+            ],
+            [
+              "writes",
+              "CREATE TABLE writes (\n                    thread_id TEXT NOT NULL,\n                    checkpoint_ns TEXT NOT NULL DEFAULT '',\n                    checkpoint_id TEXT NOT NULL,\n                    task_id TEXT NOT NULL,\n                    idx INTEGER NOT NULL,\n                    channel TEXT NOT NULL,\n                    type TEXT,\n                    value BLOB,\n                    PRIMARY KEY (thread_id, checkpoint_ns, checkpoint_id, task_id, idx)\n                )"
+            ]
+          ],
+          "row_counts": {
+            "checkpoints": 0,
+            "writes": 0
+          }
+        }
+      },
+      "screenshot": "04-restarted.png"
+    },
+    {
+      "name": "second_cycle_sigterm_cleanup",
+      "passed": true,
+      "at": "2026-09-29T04:12:29.128217+00:00"
+    }
+  ],
+  "chromium_version": "153.0.8010.12",
+  "browser_requests": [
+    {
+      "url": "http://127.0.0.1:62383/",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/@vite/client",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/src/main.tsx",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/@react-refresh",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/node_modules/.vite/deps/react.js?v=da792d38",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/node_modules/.vite/deps/react-dom_client.js?v=da792d38",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/src/App.tsx",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/src/styles.css",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=da792d38",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/node_modules/.vite/deps/rolldown-runtime-BvCyGRYZ.js?v=da792d38",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/node_modules/vite/dist/client/env.mjs",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/node_modules/.vite/deps/react-dom.js?v=da792d38",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/api/health",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/api/health",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/api/health",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/api/health",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/@vite/client",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/src/main.tsx",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/@react-refresh",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/node_modules/.vite/deps/react.js?v=da792d38",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/node_modules/.vite/deps/react-dom_client.js?v=da792d38",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/src/App.tsx",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/src/styles.css",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=da792d38",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/node_modules/.vite/deps/rolldown-runtime-BvCyGRYZ.js?v=da792d38",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/node_modules/.vite/deps/react-dom.js?v=da792d38",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/node_modules/vite/dist/client/env.mjs",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/api/health",
+      "allowed": true
+    },
+    {
+      "url": "http://127.0.0.1:62383/api/health",
+      "allowed": true
+    }
+  ],
+  "browser_page_errors": [],
+  "cleanup_errors": [],
+  "finished_at": "2026-09-29T04:12:29.128280+00:00",
+  "artifact_sha256": {
+    "01-frontend-only.png": "90040ae5a60a9fd2b87716940488a8753856178e614658be1e30872a7f19903c",
+    "02-api-connected.png": "1b8a04cbe40484d46e6d3413302381a50b9c2d3269ce5a55ce7d43e369c91c4f",
+    "03-api-stopped.png": "79001626b3fd06ce3849f3d82a952895c6b4a3484869d17182222d7c8d3d92e7",
+    "04-restarted.png": "a2545e9301f4a5f8fb6c76949fbab176f1e3209259c318f8b688ab4548449166",
+    "data/business.sqlite3": "0ab48b25cba617ed3a4acca0161813b314c095ef63544bb4af60769eb1012977",
+    "data/business.sqlite3-shm": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+    "data/business.sqlite3-wal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/graph.sqlite3": "2ac05c47e2939075229b96f1b22f6cf536807871aab26b1a931e05dd543b5540",
+    "first-api.log": "dac76f6391855eb6f7bb9d0edb14916382d050a955697871add0a69b33acf419",
+    "first-frontend.log": "1d3e0e5bc15507e7e79193ade19f441d5994ddd367a05812c454859fd4649723",
+    "first-worker.log": "4a6b39216b725faf213e134f185cad426d971540f2839ce2bef164a0b091993e",
+    "restart-api.log": "d76e9aeb7d0b2346d9c4283723b672df37f32227305f2a4058d56042a447e5fe",
+    "restart-frontend.log": "b05563b5edaba1732e03123178d796c19d619e5bd353df764bf99c38b29a5930",
+    "restart-worker.log": "ca823fc6af650e2fdccbbb6ebadb6a34f206e4b60d0f29bdf5d19925f0743232"
+  }
+}

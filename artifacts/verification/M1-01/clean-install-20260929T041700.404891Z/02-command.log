@@ -1,0 +1,68 @@
+{
+  "python": "3.12.14",
+  "python_executable": "/Users/zhanzhijie/webagent/.cache/clean-install-20260929T041700.404891Z/.venv/bin/python",
+  "sqlite": "3.53.1",
+  "sqlite_source_id": "2026-05-05 10:34:17 c88b22011a54b4f6fbd149e9f8e4de77658ce58143a1af0e3785e4e6475127e9",
+  "wal": true,
+  "fts5": true,
+  "platform": "macOS-15.3.1-arm64-arm-64bit"
+}
+No broken requirements found.
+{"passed": true, "mode": "check", "package_counts": {"python_installed": 59, "npm_locked_including_optional": 70}}
+============================= test session starts ==============================
+platform darwin -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/zhanzhijie/webagent/.cache/clean-install-20260929T041700.404891Z
+configfile: pyproject.toml
+testpaths: tests
+plugins: langsmith-0.14.1, anyio-4.15.1
+collected 22 items
+
+tests/test_foundation.py ...............                                 [ 68%]
+tests/test_network_audit.py .......                                      [100%]
+
+============================== 22 passed in 0.58s ==============================
+
+> webagent-workbench@0.1.0 typecheck
+> tsc --noEmit
+
+
+> webagent-workbench@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.1 building client environment for production...
+transforming...
+✓ 16 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.55 kB │ gzip:  0.35 kB
+dist/assets/index-BvraYwH5.css    4.87 kB │ gzip:  1.68 kB
+dist/assets/index-DMroVqcF.js   224.04 kB │ gzip: 70.52 kB
+
+✓ built in 279ms
+{"passed": true, "report": "/Users/zhanzhijie/webagent/.cache/clean-install-20260929T041700.404891Z/artifacts/verification/M1-01/check-20260929T041732Z.PXZmez/integration/report.json", "error": null}
+{"check": "frontend_starts_without_api", "passed": true}
+{"check": "api_health_visible_in_browser", "passed": true}
+{"check": "independent_worker_initializes_two_databases", "passed": true}
+{"check": "worker_and_frontend_survive_api_shutdown", "passed": true}
+{"check": "first_cycle_sigterm_cleanup", "passed": true}
+{"check": "worker_starts_without_api", "passed": true}
+{"check": "same_directory_restart_is_idempotent", "passed": true}
+{"check": "second_cycle_sigterm_cleanup", "passed": true}
+{"passed": true, "report": "/Users/zhanzhijie/webagent/.cache/clean-install-20260929T041700.404891Z/artifacts/verification/M1-01/check-20260929T041732Z.PXZmez/startup/report.json", "error": null}
+{
+  "passed": true,
+  "reports": [
+    {
+      "report": "/Users/zhanzhijie/webagent/.cache/clean-install-20260929T041700.404891Z/artifacts/verification/M1-01/check-20260929T041732Z.PXZmez/integration/report.json",
+      "passed": true,
+      "checked_files": 8,
+      "errors": []
+    },
+    {
+      "report": "/Users/zhanzhijie/webagent/.cache/clean-install-20260929T041700.404891Z/artifacts/verification/M1-01/check-20260929T041732Z.PXZmez/startup/report.json",
+      "passed": true,
+      "checked_files": 14,
+      "errors": []
+    }
+  ]
+}

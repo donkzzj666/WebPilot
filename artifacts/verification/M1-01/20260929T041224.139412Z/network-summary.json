@@ -1,0 +1,118 @@
+{
+  "python": {
+    "events": 1,
+    "non_loopback": [],
+    "known_loopback_connect_observed": true
+  },
+  "node_driver": {
+    "events": 2,
+    "audit_loaded": true,
+    "audit_exit": true,
+    "non_loopback_or_unclassified_udp": []
+  },
+  "chromium": {
+    "event_count": 874,
+    "connection_attempts": [
+      {
+        "event": "TCP_CONNECT_ATTEMPT",
+        "source_id": 16,
+        "destination": "127.0.0.1:62370",
+        "loopback": true
+      },
+      {
+        "event": "TCP_CONNECT_ATTEMPT",
+        "source_id": 26,
+        "destination": "127.0.0.1:62370",
+        "loopback": true
+      },
+      {
+        "event": "TCP_CONNECT_ATTEMPT",
+        "source_id": 31,
+        "destination": "127.0.0.1:62370",
+        "loopback": true
+      },
+      {
+        "event": "TCP_CONNECT_ATTEMPT",
+        "source_id": 36,
+        "destination": "127.0.0.1:62370",
+        "loopback": true
+      },
+      {
+        "event": "TCP_CONNECT_ATTEMPT",
+        "source_id": 44,
+        "destination": "127.0.0.1:62370",
+        "loopback": true
+      },
+      {
+        "event": "TCP_CONNECT_ATTEMPT",
+        "source_id": 50,
+        "destination": "127.0.0.1:62370",
+        "loopback": true
+      },
+      {
+        "event": "TCP_CONNECT_ATTEMPT",
+        "source_id": 60,
+        "destination": "127.0.0.1:62370",
+        "loopback": true
+      },
+      {
+        "event": "TCP_CONNECT_ATTEMPT",
+        "source_id": 68,
+        "destination": "127.0.0.1:62370",
+        "loopback": true
+      },
+      {
+        "event": "TCP_CONNECT_ATTEMPT",
+        "source_id": 74,
+        "destination": "127.0.0.1:62370",
+        "loopback": true
+      },
+      {
+        "event": "TCP_CONNECT_ATTEMPT",
+        "source_id": 78,
+        "destination": "127.0.0.1:62370",
+        "loopback": true
+      }
+    ],
+    "resolver_requests": [
+      {
+        "event": "HOST_RESOLVER_MANAGER_REQUEST",
+        "host": "http://127.0.0.1",
+        "loopback": true
+      },
+      {
+        "event": "HOST_RESOLVER_MANAGER_REQUEST",
+        "host": "https://127.0.0.1",
+        "loopback": true
+      },
+      {
+        "event": "HOST_RESOLVER_MANAGER_REQUEST",
+        "host": "https://127.0.0.1",
+        "loopback": true
+      },
+      {
+        "event": "HOST_RESOLVER_MANAGER_REQUEST",
+        "host": "https://127.0.0.1",
+        "loopback": true
+      },
+      {
+        "event": "HOST_RESOLVER_MANAGER_REQUEST",
+        "host": "http://127.0.0.1:62370",
+        "loopback": true
+      }
+    ],
+    "route_only_probes": [
+      {
+        "event": "UDP_CONNECT",
+        "source_id": 15,
+        "destination": "[2001:4860:4860::8888]:443",
+        "loopback": false,
+        "classification": "IPv6 routing capability check; closed without any UDP send/receive event"
+      }
+    ],
+    "non_loopback": [],
+    "known_loopback_connect_observed": true
+  },
+  "scope": "Python socket audit + Node net/dns/dgram hooks + Chromium netlog for this synthetic fixture run; attempted connections and resolver requests, not OS-wide packet capture or a network enforcement boundary. The Node driver normally uses stdio pipes and may have no network events. Child/native networking outside these observed APIs is not claimed as covered.",
+  "passed": true
+}

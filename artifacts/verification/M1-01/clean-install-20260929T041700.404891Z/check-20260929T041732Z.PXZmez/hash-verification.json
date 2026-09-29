@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "reports": [
+    {
+      "report": "/Users/zhanzhijie/webagent/.cache/clean-install-20260929T041700.404891Z/artifacts/verification/M1-01/check-20260929T041732Z.PXZmez/integration/report.json",
+      "passed": true,
+      "checked_files": 8,
+      "errors": []
+    },
+    {
+      "report": "/Users/zhanzhijie/webagent/.cache/clean-install-20260929T041700.404891Z/artifacts/verification/M1-01/check-20260929T041732Z.PXZmez/startup/report.json",
+      "passed": true,
+      "checked_files": 14,
+      "errors": []
+    }
+  ]
+}

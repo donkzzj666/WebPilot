@@ -1,0 +1,110 @@
+[
+  {
+    "request": "GET /audit-self-check HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62052
+    ],
+    "allowed": true,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "GET http://clients2.google.com/time/1/current?cup2key=10:ccPX0i2Lq7FZC7HIoEADtJKMa6W9OhKFR90qZrefM4M&cup2hreq=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62053
+    ],
+    "allowed": false,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "CONNECT update.googleapis.com:443 HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62054
+    ],
+    "allowed": false,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "CONNECT update.googleapis.com:443 HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62055
+    ],
+    "allowed": false,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "CONNECT accounts.google.com:443 HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62056
+    ],
+    "allowed": false,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "CONNECT www.google.com:443 HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62058
+    ],
+    "allowed": false,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "CONNECT www.google.com:443 HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62059
+    ],
+    "allowed": false,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "CONNECT www.google.com:443 HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62060
+    ],
+    "allowed": false,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "GET http://127.0.0.1:62051/fixture HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62061
+    ],
+    "allowed": true,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "CONNECT www.google.com:443 HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62062
+    ],
+    "allowed": false,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "GET http://127.0.0.1:62051/favicon.ico HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62063
+    ],
+    "allowed": true,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "CONNECT www.google.com:443 HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62064
+    ],
+    "allowed": false,
+    "upstream_forwarded": false
+  }
+]

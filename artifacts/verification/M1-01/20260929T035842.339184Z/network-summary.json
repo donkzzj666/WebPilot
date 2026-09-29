@@ -1,0 +1,45 @@
+{
+  "python": {
+    "events": 1,
+    "non_loopback": [],
+    "known_loopback_connect_observed": true
+  },
+  "node_driver": {
+    "events": 2,
+    "audit_loaded": true,
+    "audit_exit": true,
+    "non_loopback_or_unclassified_udp": []
+  },
+  "chromium": {
+    "event_count": 117,
+    "connection_attempts": [
+      {
+        "event": "UDP_CONNECT",
+        "destination": "[2001:4860:4860::8888]:443",
+        "loopback": false
+      },
+      {
+        "event": "TCP_CONNECT_ATTEMPT",
+        "destination": "127.0.0.1:61832",
+        "loopback": true
+      }
+    ],
+    "resolver_requests": [
+      {
+        "event": "HOST_RESOLVER_MANAGER_REQUEST",
+        "host": "http://127.0.0.1:61832",
+        "loopback": true
+      }
+    ],
+    "non_loopback": [
+      {
+        "event": "UDP_CONNECT",
+        "destination": "[2001:4860:4860::8888]:443",
+        "loopback": false
+      }
+    ],
+    "known_loopback_connect_observed": true
+  },
+  "scope": "Python socket audit + Node net/dns/dgram hooks + Chromium netlog for this synthetic fixture run; attempted connections and resolver requests, not OS-wide packet capture or a network enforcement boundary. The Node driver normally uses stdio pipes and may have no network events. Child/native networking outside these observed APIs is not claimed as covered.",
+  "passed": false
+}

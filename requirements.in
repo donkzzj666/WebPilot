@@ -1,0 +1,6 @@
+# Direct dependencies; full transitive versions and hashes are in requirements.lock.
+fastapi==0.141.1
+uvicorn==0.54.0
+langgraph==1.2.12
+langgraph-checkpoint-sqlite==3.1.1
+playwright==1.63.0

@@ -1,0 +1,6 @@
+-r requirements.in
+# Verification and lock-generation tools, installed only in the development venv.
+pytest==9.1.1
+httpx==0.28.1
+pip-tools==7.6.1
+pip==25.0.1

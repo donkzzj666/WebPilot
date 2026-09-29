@@ -1,0 +1,12 @@
+[project]
+name = "webagent"
+version = "0.1.0"
+description = "Local browser agent — M1 execution foundation"
+requires-python = ">=3.12,<3.13"
+dynamic = ["dependencies"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["backend"]
+addopts = "-ra"
+

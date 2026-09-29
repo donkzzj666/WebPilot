@@ -1,0 +1,23 @@
+[
+  {
+    "request": "GET /audit-self-check HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      61972
+    ]
+  },
+  {
+    "request": "GET /fixture HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      61983
+    ]
+  },
+  {
+    "request": "GET /favicon.ico HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      61985
+    ]
+  }
+]

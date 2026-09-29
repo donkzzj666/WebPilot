@@ -1,0 +1,13 @@
+
+  VITE v8.3.1  ready in 121 ms
+
+  ➜  Local:   http://127.0.0.1:62071/
+12:04:12 PM [vite] http proxy error: /health
+Error: connect ECONNREFUSED 127.0.0.1:62070
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1864:16)
+12:04:12 PM [vite] http proxy error: /health
+Error: connect ECONNREFUSED 127.0.0.1:62070
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1864:16)
+12:04:13 PM [vite] http proxy error: /health
+Error: connect ECONNREFUSED 127.0.0.1:62070
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1864:16)

@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "platform": "Darwin",
+  "architecture": "arm64",
+  "playwright_version": "1.63.0",
+  "playwright_browser_manifest": {
+    "path": ".venv/lib/python3.12/site-packages/playwright/driver/package/browsers.json",
+    "sha256": "545d52f8382c391e605562c330e9c1c534a16045898203037a49bb8bd769a946"
+  },
+  "browsers": [
+    {
+      "name": "chromium",
+      "revision": "1243",
+      "version": "153.0.8010.12",
+      "version_source": ".venv/lib/python3.12/site-packages/playwright/driver/package/browsers.json",
+      "executable": {
+        "path": ".cache/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+        "sha256": "8319963f6625accf51c0dd4f55091ceaf9f09ed39e7a52fed4fae12b2a6b668a"
+      },
+      "installation_complete": ".cache/ms-playwright/chromium-1243/INSTALLATION_COMPLETE",
+      "license_resources": [
+        {
+          "path": ".cache/ms-playwright/chromium-1243/chrome-mac-arm64/ABOUT",
+          "sha256": "34d078ce3003087a8374e7c6156fda374769b8047d6ddaf419d66414aa48edfb"
+        },
+        {
+          "path": ".cache/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/153.0.8010.12/Libraries/WidevineCdm/LICENSE",
+          "sha256": "20de375707692099b3132084695377ce5fec0aec05813dedcce094b8eda44386"
+        },
+        {
+          "path": ".cache/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/153.0.8010.12/Resources/resources.pak",
+          "sha256": "4a2955e9c0ace1b6993330ed8e725557379973d93f91ee19daa6e2c5306170bf"
+        }
+      ],
+      "installed_bundle_version": "153.0.8010.12",
+      "bundle_version_source": {
+        "path": ".cache/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Info.plist",
+        "sha256": "cccac1e14b0e8ce0db816d5dda95ab102a56c5c6b6739ce3352f5ed5ea8a243b"
+      }
+    },
+    {
+      "name": "chromium-headless-shell",
+      "revision": "1243",
+      "version": "153.0.8010.12",
+      "version_source": ".venv/lib/python3.12/site-packages/playwright/driver/package/browsers.json",
+      "executable": {
+        "path": ".cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-mac-arm64/chrome-headless-shell",
+        "sha256": "a0bfe7b4da4787b66058477d696cd1d09065d25f06a548947722b9af77ee8282"
+      },
+      "installation_complete": ".cache/ms-playwright/chromium_headless_shell-1243/INSTALLATION_COMPLETE",
+      "license_resources": [
+        {
+          "path": ".cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-mac-arm64/ABOUT",
+          "sha256": "34d078ce3003087a8374e7c6156fda374769b8047d6ddaf419d66414aa48edfb"
+        },
+        {
+          "path": ".cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-mac-arm64/LICENSE.headless_shell",
+          "sha256": "14561bfc58f207af7ade768e8b95e99f9cf8af6d9aa46b4c0d9ae0b3a97585cc"
+        }
+      ]
+    }
+  ],
+  "bundled_support": [
+    {
+      "name": "ffmpeg",
+      "revision": "1011",
+      "license_files": [
+        {
+          "path": ".cache/ms-playwright/ffmpeg-1011/COPYING.LGPLv2.1",
+          "sha256": "b634ab5640e258563c536e658cad87080553df6f34f62269a21d554844e58bfe"
+        }
+      ]
+    }
+  ],
+  "license_note": "Chrome for Testing ABOUT points to chrome://credits for Chromium and third-party software, and chrome://terms for its terms. The installed resources.pak and headless LICENSE.headless_shell are retained as local notice resources; this is an inventory, not a claim that every browser component uses one licence.",
+  "generated_at": "2026-09-29T04:16:04.774521+00:00"
+}

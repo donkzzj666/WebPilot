@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "reports": [
+    {
+      "report": "/Users/zhanzhijie/webagent/artifacts/verification/M1-01/check-20260929T041518Z.6xili6/integration/report.json",
+      "passed": true,
+      "checked_files": 8,
+      "errors": []
+    },
+    {
+      "report": "/Users/zhanzhijie/webagent/artifacts/verification/M1-01/check-20260929T041518Z.6xili6/startup/report.json",
+      "passed": true,
+      "checked_files": 14,
+      "errors": []
+    }
+  ]
+}

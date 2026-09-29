@@ -1,0 +1,20 @@
+[
+  {
+    "request": "GET /audit-self-check HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62038
+    ],
+    "allowed": true,
+    "upstream_forwarded": false
+  },
+  {
+    "request": "GET http://127.0.0.1:62037/fixture HTTP/1.1",
+    "peer": [
+      "127.0.0.1",
+      62039
+    ],
+    "allowed": true,
+    "upstream_forwarded": false
+  }
+]

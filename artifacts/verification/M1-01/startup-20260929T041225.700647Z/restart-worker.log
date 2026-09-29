@@ -1,0 +1,2 @@
+{"event": "worker_ready", "service": "worker", "stage": "M1-01", "pid": 72674, "task_execution_enabled": false, "sqlite_version": "3.53.1", "mode": "idle"}
+{"event": "worker_stopped", "service": "worker"}

@@ -1,0 +1,77 @@
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  color: #233147;
+  background: #f6f7f9;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { font: inherit; }
+button:focus-visible, a:focus-visible { outline: 3px solid #6496df; outline-offset: 4px; }
+.workspace { min-height: 100vh; display: flex; flex-direction: column; }
+.topbar { height: 84px; padding: 0 6%; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e7ee; background: #fff; }
+.brand { display: flex; gap: 12px; align-items: center; color: #20324d; text-decoration: none; font-size: 19px; font-weight: 700; letter-spacing: -.4px; }
+.brand-mark { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: #253e61; color: #fff; font-size: 27px; font-weight: 500; }
+.local-label { display: flex; align-items: center; gap: 8px; color: #5e6c80; font-size: 13px; }
+.local-label > span { width: 6px; height: 6px; border-radius: 50%; background: #5b7698; }
+main { width: min(1120px, 88%); margin: 64px auto 72px; flex: 1; }
+.eyebrow { display: inline-block; color: #516884; font-size: 12px; font-weight: 650; letter-spacing: 1.6px; margin-bottom: 15px; }
+h1, h2, h3, p { margin: 0; }
+h1 { font-size: clamp(27px, 3vw, 35px); font-weight: 650; letter-spacing: -1px; }
+.intro > p { font-size: 15px; color: #657286; line-height: 1.8; margin-top: 14px; }
+.startup-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; margin-top: 34px; }
+.overview-card, .health-card, .next-card { border: 1px solid #dfe5ec; border-radius: 16px; }
+.overview-card { padding: 36px; background: #edf2f8; display: flex; flex-direction: column; align-items: flex-start; }
+.status-badge { display: inline-flex; align-items: center; gap: 7px; color: #356252; background: #e0eee7; padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+.status-badge > span { height: 5px; width: 5px; border-radius: 50%; background: #43735b; }
+.overview-card h2 { margin-top: 26px; font-size: clamp(23px, 2.5vw, 29px); font-weight: 600; line-height: 1.6; letter-spacing: -.6px; }
+.overview-card > p { max-width: 410px; margin-top: 17px; color: #5f6f85; line-height: 1.9; font-size: 14px; }
+.component-row { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-top: 35px; color: #3b526e; font-size: 11px; }
+.component-row > span:not(.connector) { border: 1px solid #d8e1ec; border-radius: 5px; background: #f9fbfd; padding: 7px 9px; }
+.connector { color: #8a99ab; }
+.health-card { padding: 28px; background: white; }
+.card-heading { display: flex; justify-content: space-between; align-items: center; }
+.card-heading h2 { font-size: 15px; font-weight: 600; }
+.card-heading > span { color: #6e7b8e; font-size: 10px; letter-spacing: 1.7px; }
+.health-result { text-align: center; padding: 28px 0 24px; }
+.health-icon { display: grid; place-items: center; margin: 0 auto 15px; width: 46px; height: 46px; background: #eef2f7; color: #566d8c; border: 1px solid #e1e7ef; border-radius: 50%; font-size: 23px; }
+.ready .health-icon { color: #34725b; background: #eaf5ee; border-color: #d7ebdf; }
+.unavailable .health-icon { color: #9b642d; background: #fcf4e8; border-color: #f0e2cb; }
+.health-result h3 { font-size: 18px; font-weight: 600; }
+.health-result p { color: #657286; font-size: 12px; min-height: 36px; margin-top: 11px; line-height: 1.7; }
+.health-card button { width: 100%; cursor: pointer; border: 1px solid #2b476c; border-radius: 7px; color: white; background: #2b476c; padding: 11px 16px; font-size: 13px; font-weight: 550; transition: background 150ms; }
+.health-card button:hover:not(:disabled) { background: #203755; }
+.health-card button:disabled { cursor: wait; color: #63748c; background: #e9eef5; border-color: #e0e6ee; }
+.health-note { color: #657286; font-size: 11px; line-height: 1.8; margin-top: 16px; }
+.next-card { position: relative; background: #fff; padding: 27px 30px; margin-top: 24px; }
+.next-card > div { display: flex; align-items: center; gap: 14px; }
+.section-number { font-size: 10px; font-weight: 600; letter-spacing: 1.1px; color: #5f738e; border-right: 1px solid #dfe5ec; padding-right: 14px; }
+.next-card h2 { font-size: 15px; font-weight: 600; }
+.next-card p { color: #657286; font-size: 13px; line-height: 1.9; margin: 13px 155px 0 0; }
+.pending-tag { position: absolute; right: 30px; top: 29px; background: #f3f5f8; color: #637286; border: 1px solid #e3e8ef; border-radius: 5px; font-size: 11px; padding: 6px 9px; }
+footer { border-top: 1px solid #e2e7ee; width: min(1120px, 88%); margin: 0 auto; padding: 21px 0 25px; display: flex; justify-content: space-between; color: #6c788b; font-size: 11px; }
+
+@media (max-width: 760px) {
+  .topbar { height: 70px; }
+  main { margin-top: 38px; margin-bottom: 44px; }
+  .startup-grid { grid-template-columns: 1fr; gap: 16px; }
+  .overview-card { padding: 26px; }
+  .health-card { padding: 24px; }
+  .health-result { padding: 23px 0 17px; }
+  .next-card { padding: 24px; margin-top: 16px; }
+  .next-card p { margin-right: 0; }
+  .pending-tag { display: inline-block; position: static; margin-top: 16px; }
+}
+
+@media (max-width: 400px) {
+  .brand { font-size: 16px; gap: 9px; }
+  .local-label { font-size: 11px; }
+  .component-row { gap: 5px; font-size: 10px; }
+  .component-row > span:not(.connector) { padding: 6px; }
+  footer { gap: 16px; line-height: 1.7; }
+}
