@@ -1,0 +1,52 @@
+{
+  "task": "M1-01",
+  "passed": true,
+  "clean_checkout": "/Users/zhanzhijie/webagent/.cache/clean-install-20260929T060351.192585Z",
+  "commands": [
+    {
+      "command": [
+        "./scripts/bootstrap.sh"
+      ],
+      "exit_code": 0,
+      "log": "01-command.log"
+    },
+    {
+      "command": [
+        "./scripts/check.sh",
+        "--headed"
+      ],
+      "exit_code": 0,
+      "log": "02-command.log"
+    }
+  ],
+  "scope": "New venv and node_modules from locks; shared package/download caches, no copied installation or business data.",
+  "artifact_sha256": {
+    "01-command.log": "7697ea070b801958fa6e592d15c0b555d1ec3fe68e2a8a2dee99a77c4a2cbe09",
+    "02-command.log": "201a49edde5a01576fb14930e8b80b4ec22bf0d038a36630a41dd9b24b7344d0",
+    "check-20260929T060440Z.Koo2yf/hash-verification.json": "c4d94d49344f2f461a31111152d2f4fdbe1e85b05a97791bde326dc52b6d0b9c",
+    "check-20260929T060440Z.Koo2yf/integration/business.sqlite3": "1fc77ea179549be0c1af1c845ae513f5c230e56d61aa7d9dc267a026ba40fc25",
+    "check-20260929T060440Z.Koo2yf/integration/chromium-netlog.json": "5029e4d55672968103b38c285db36fa18ada01d6d8d3883fa57748461cbd5dbc",
+    "check-20260929T060440Z.Koo2yf/integration/fixture-http-requests.json": "588d698157682b82cbfba976c72ababbfb4bfca955cf12ed3998dfd295eb2017",
+    "check-20260929T060440Z.Koo2yf/integration/graph.sqlite3": "14652a30d57ea0f239cc171f9f948839a783e5d54fdb911625cb97ae42766c0d",
+    "check-20260929T060440Z.Koo2yf/integration/local-fixture.png": "ff5352d3a1a6e5de9cd0314e05923845af6b6fcfb866e252f9c9ff8371ea507c",
+    "check-20260929T060440Z.Koo2yf/integration/network-summary.json": "fdea9f8f277d31f70677b639225cc39e4e306c9de9404a740aeda92430ac0fcb",
+    "check-20260929T060440Z.Koo2yf/integration/node-network-audit.jsonl": "5d79afed136939fe4fae7aca88919adc3215ca8773d84195bcff085160ab3a4b",
+    "check-20260929T060440Z.Koo2yf/integration/python-network-audit.jsonl": "382dbaad24dc2fb3692ad2b486b27ced82ab2719ed147a01c6e3a04d83350754",
+    "check-20260929T060440Z.Koo2yf/integration/report.json": "e8420f7f993ba44027fffcd34de58e43dbb2b3421a8b65478db8ae3709aeed1b",
+    "check-20260929T060440Z.Koo2yf/startup/01-frontend-only.png": "90040ae5a60a9fd2b87716940488a8753856178e614658be1e30872a7f19903c",
+    "check-20260929T060440Z.Koo2yf/startup/02-api-connected.png": "f2d8f3fcb0e5fba908334d6c815e6d4bf016fab7318d4a84c718c55615067792",
+    "check-20260929T060440Z.Koo2yf/startup/03-api-stopped.png": "79001626b3fd06ce3849f3d82a952895c6b4a3484869d17182222d7c8d3d92e7",
+    "check-20260929T060440Z.Koo2yf/startup/04-restarted.png": "46e4fce195410e16fb2ada70d667c82b484cd0406a9235748ccddbe0a16a9d22",
+    "check-20260929T060440Z.Koo2yf/startup/data/business.sqlite3": "0ab48b25cba617ed3a4acca0161813b314c095ef63544bb4af60769eb1012977",
+    "check-20260929T060440Z.Koo2yf/startup/data/business.sqlite3-shm": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+    "check-20260929T060440Z.Koo2yf/startup/data/business.sqlite3-wal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "check-20260929T060440Z.Koo2yf/startup/data/graph.sqlite3": "2ac05c47e2939075229b96f1b22f6cf536807871aab26b1a931e05dd543b5540",
+    "check-20260929T060440Z.Koo2yf/startup/first-api.log": "59040ab70a1dba245f99918611ce895790994cb2cae8465d2069c15ea8226321",
+    "check-20260929T060440Z.Koo2yf/startup/first-frontend.log": "000f34914f80d3553a2eee3aa76b1b1bc411de566220622597d4507282c7b360",
+    "check-20260929T060440Z.Koo2yf/startup/first-worker.log": "1c38c7452f998cae304a206a17d2149b9aaccb9572c6093540458fbb55d8f48b",
+    "check-20260929T060440Z.Koo2yf/startup/report.json": "ece79607fb2c12362758e1f7de5edec35b3964b8b9a52153d77c17c341d8356d",
+    "check-20260929T060440Z.Koo2yf/startup/restart-api.log": "3620a21cc2b3f9ac5f7ca7885db4bb50b8e7ce4c5928b0e4119d3d9be051f1e8",
+    "check-20260929T060440Z.Koo2yf/startup/restart-frontend.log": "7e35d2d61089ed96afd96c76deebf857bc21fe3e057c827eb25a8eb957d57797",
+    "check-20260929T060440Z.Koo2yf/startup/restart-worker.log": "1f26a807e9ddc4d456a041f6196917f532bcd0fbd8964568337079df62aefc77"
+  }
+}

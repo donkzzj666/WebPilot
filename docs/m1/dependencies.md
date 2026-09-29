@@ -1,8 +1,8 @@
 # M1-01 依赖版本与许可清单
 
-生成时间（UTC）：2026-09-29T04:16:04.774521+00:00。由 `scripts/build_manifest.py` 离线读取已安装元数据与锁文件生成。
+生成时间（UTC）：2026-09-29T06:00:47.958943+00:00。由 `scripts/dependencies/build_manifest.py` 离线读取已安装元数据与锁文件生成。
 
-仅在依赖升级并完成验证后显式更新；日常启动不重写。使用 `.venv/bin/python scripts/build_manifest.py --check` 检查漂移。
+仅在依赖升级并完成验证后显式更新；日常启动不重写。使用 `.venv/bin/python scripts/dependencies/build_manifest.py --check` 检查漂移。
 
 完整字段、原许可路径和 SHA-256 见 [build-manifest.json](../../config/build-manifest.json)；浏览器版本、修订与二进制摘要见 [browser-lock.json](../../config/browser-lock.json)。
 
@@ -20,8 +20,8 @@
 
 | 锁定输入 | SHA-256 |
 | --- | --- |
-| `requirements.lock` | `63cdf1b2bfa9a8c946ebe48de2f88dea4e205dbbaabac17eee33067f3df9b300` |
-| `requirements-dev.lock` | `ba1ffc965a5c3b4a9e2ac142143b960ea249ba72728d9552029b6825878bfe47` |
+| `requirements/requirements.lock` | `63cdf1b2bfa9a8c946ebe48de2f88dea4e205dbbaabac17eee33067f3df9b300` |
+| `requirements/requirements-dev.lock` | `ba1ffc965a5c3b4a9e2ac142143b960ea249ba72728d9552029b6825878bfe47` |
 | `frontend/package-lock.json` | `200655fbde9f2b4a3b0027a6d32e6a2b6d53556c0e74e15b0b4773c128bc95fb` |
 | `.python-version` | `f50159fad3f4319868eb38717b91d55843c41e9803014c8de05e116a6d0bcfdc` |
 | `.node-version` | `7e8a2fa94951112b894a3dbe3d05efef5e9263741fa49125f0a70f40fedab4cc` |
@@ -32,65 +32,65 @@
 
 | 包 | 版本 | 声明许可 | 锁文件 |
 | --- | --- | --- | --- |
-| aiosqlite | 0.22.1 | License :: OSI Approved :: MIT License | requirements.lock, requirements-dev.lock |
-| annotated-doc | 0.0.5 | MIT | requirements.lock, requirements-dev.lock |
-| annotated-types | 0.8.0 | MIT | requirements.lock, requirements-dev.lock |
-| anyio | 4.15.1 | MIT | requirements.lock, requirements-dev.lock |
-| build | 1.6.1 | MIT | requirements-dev.lock |
-| certifi | 2026.7.22 | MPL-2.0 | requirements.lock, requirements-dev.lock |
-| charset-normalizer | 3.5.1 | MIT | requirements.lock, requirements-dev.lock |
-| click | 8.5.0 | BSD-3-Clause | requirements.lock, requirements-dev.lock |
-| distro | 1.9.0 | Apache License, Version 2.0 | requirements.lock, requirements-dev.lock |
-| fastapi | 0.141.1 | MIT | requirements.lock, requirements-dev.lock |
-| greenlet | 3.5.6 | MIT AND PSF-2.0 | requirements.lock, requirements-dev.lock |
-| h11 | 0.16.0 | MIT | requirements.lock, requirements-dev.lock |
-| httpcore | 1.0.9 | BSD-3-Clause | requirements.lock, requirements-dev.lock |
-| httpcore2 | 2.13.1 | BSD-3-Clause | requirements.lock, requirements-dev.lock |
-| httpx | 0.28.1 | BSD-3-Clause | requirements.lock, requirements-dev.lock |
-| httpx2 | 2.13.1 | BSD-3-Clause | requirements.lock, requirements-dev.lock |
-| idna | 3.20 | BSD-3-Clause | requirements.lock, requirements-dev.lock |
-| iniconfig | 2.3.0 | MIT | requirements-dev.lock |
-| jsonpatch | 1.33 | Modified BSD License | requirements.lock, requirements-dev.lock |
-| jsonpointer | 3.1.1 | Modified BSD License | requirements.lock, requirements-dev.lock |
-| langchain-core | 1.6.5 | MIT | requirements.lock, requirements-dev.lock |
-| langchain-protocol | 0.0.19 | MIT | requirements.lock, requirements-dev.lock |
-| langgraph | 1.2.12 | MIT | requirements.lock, requirements-dev.lock |
-| langgraph-checkpoint | 4.2.0 | MIT | requirements.lock, requirements-dev.lock |
-| langgraph-checkpoint-sqlite | 3.1.1 | MIT | requirements.lock, requirements-dev.lock |
-| langgraph-prebuilt | 1.1.0 | MIT | requirements.lock, requirements-dev.lock |
-| langgraph-sdk | 0.4.5 | MIT | requirements.lock, requirements-dev.lock |
-| langsmith | 0.14.1 | MIT | requirements.lock, requirements-dev.lock |
-| orjson | 3.12.0 | MPL-2.0 AND (Apache-2.0 OR MIT) | requirements.lock, requirements-dev.lock |
-| ormsgpack | 1.12.2 | Apache-2.0 OR MIT | requirements.lock, requirements-dev.lock |
-| packaging | 26.3 | Apache-2.0 OR BSD-2-Clause | requirements.lock, requirements-dev.lock |
-| pip | 25.0.1 | MIT | requirements-dev.lock |
-| pip-tools | 7.6.1 | BSD | requirements-dev.lock |
-| playwright | 1.63.0 | Apache-2.0 | requirements.lock, requirements-dev.lock |
-| pluggy | 1.6.0 | MIT | requirements-dev.lock |
-| pydantic | 2.13.5 | MIT | requirements.lock, requirements-dev.lock |
-| pydantic_core | 2.46.5 | MIT | requirements.lock, requirements-dev.lock |
-| pyee | 13.0.1 | MIT | requirements.lock, requirements-dev.lock |
-| Pygments | 2.21.0 | BSD-2-Clause | requirements-dev.lock |
-| pyproject_hooks | 1.3.3 | MIT | requirements-dev.lock |
-| pytest | 9.1.1 | MIT | requirements-dev.lock |
-| PyYAML | 6.0.3 | MIT | requirements.lock, requirements-dev.lock |
-| requests | 2.34.2 | Apache-2.0 | requirements.lock, requirements-dev.lock |
-| requests-toolbelt | 1.0.0 | Apache 2.0 | requirements.lock, requirements-dev.lock |
-| setuptools | 84.0.0 | MIT | requirements-dev.lock |
-| sniffio | 1.3.1 | MIT OR Apache-2.0 | requirements.lock, requirements-dev.lock |
-| sqlite-vec | 0.1.9 | MIT License, Apache License, Version 2.0 | requirements.lock, requirements-dev.lock |
-| starlette | 1.7.0 | BSD-3-Clause | requirements.lock, requirements-dev.lock |
-| tenacity | 9.1.4 | Apache 2.0 | requirements.lock, requirements-dev.lock |
-| truststore | 0.10.4 | MIT | requirements.lock, requirements-dev.lock |
-| typing_extensions | 4.16.0 | PSF-2.0 | requirements.lock, requirements-dev.lock |
-| typing-inspection | 0.4.4 | MIT | requirements.lock, requirements-dev.lock |
-| urllib3 | 2.8.0 | MIT | requirements.lock, requirements-dev.lock |
-| uuid_utils | 0.17.1 | BSD-3-Clause | requirements.lock, requirements-dev.lock |
-| uvicorn | 0.54.0 | BSD-3-Clause | requirements.lock, requirements-dev.lock |
-| websockets | 16.1.1 | BSD-3-Clause | requirements.lock, requirements-dev.lock |
-| wheel | 0.48.0 | MIT | requirements-dev.lock |
-| xxhash | 4.0.1 | BSD-2-Clause | requirements.lock, requirements-dev.lock |
-| zstandard | 0.25.0 | BSD-3-Clause | requirements.lock, requirements-dev.lock |
+| aiosqlite | 0.22.1 | License :: OSI Approved :: MIT License | requirements/requirements.lock, requirements/requirements-dev.lock |
+| annotated-doc | 0.0.5 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| annotated-types | 0.8.0 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| anyio | 4.15.1 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| build | 1.6.1 | MIT | requirements/requirements-dev.lock |
+| certifi | 2026.7.22 | MPL-2.0 | requirements/requirements.lock, requirements/requirements-dev.lock |
+| charset-normalizer | 3.5.1 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| click | 8.5.0 | BSD-3-Clause | requirements/requirements.lock, requirements/requirements-dev.lock |
+| distro | 1.9.0 | Apache License, Version 2.0 | requirements/requirements.lock, requirements/requirements-dev.lock |
+| fastapi | 0.141.1 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| greenlet | 3.5.6 | MIT AND PSF-2.0 | requirements/requirements.lock, requirements/requirements-dev.lock |
+| h11 | 0.16.0 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| httpcore | 1.0.9 | BSD-3-Clause | requirements/requirements.lock, requirements/requirements-dev.lock |
+| httpcore2 | 2.13.1 | BSD-3-Clause | requirements/requirements.lock, requirements/requirements-dev.lock |
+| httpx | 0.28.1 | BSD-3-Clause | requirements/requirements.lock, requirements/requirements-dev.lock |
+| httpx2 | 2.13.1 | BSD-3-Clause | requirements/requirements.lock, requirements/requirements-dev.lock |
+| idna | 3.20 | BSD-3-Clause | requirements/requirements.lock, requirements/requirements-dev.lock |
+| iniconfig | 2.3.0 | MIT | requirements/requirements-dev.lock |
+| jsonpatch | 1.33 | Modified BSD License | requirements/requirements.lock, requirements/requirements-dev.lock |
+| jsonpointer | 3.1.1 | Modified BSD License | requirements/requirements.lock, requirements/requirements-dev.lock |
+| langchain-core | 1.6.5 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| langchain-protocol | 0.0.19 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| langgraph | 1.2.12 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| langgraph-checkpoint | 4.2.0 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| langgraph-checkpoint-sqlite | 3.1.1 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| langgraph-prebuilt | 1.1.0 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| langgraph-sdk | 0.4.5 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| langsmith | 0.14.1 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| orjson | 3.12.0 | MPL-2.0 AND (Apache-2.0 OR MIT) | requirements/requirements.lock, requirements/requirements-dev.lock |
+| ormsgpack | 1.12.2 | Apache-2.0 OR MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| packaging | 26.3 | Apache-2.0 OR BSD-2-Clause | requirements/requirements.lock, requirements/requirements-dev.lock |
+| pip | 25.0.1 | MIT | requirements/requirements-dev.lock |
+| pip-tools | 7.6.1 | BSD | requirements/requirements-dev.lock |
+| playwright | 1.63.0 | Apache-2.0 | requirements/requirements.lock, requirements/requirements-dev.lock |
+| pluggy | 1.6.0 | MIT | requirements/requirements-dev.lock |
+| pydantic | 2.13.5 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| pydantic_core | 2.46.5 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| pyee | 13.0.1 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| Pygments | 2.21.0 | BSD-2-Clause | requirements/requirements-dev.lock |
+| pyproject_hooks | 1.3.3 | MIT | requirements/requirements-dev.lock |
+| pytest | 9.1.1 | MIT | requirements/requirements-dev.lock |
+| PyYAML | 6.0.3 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| requests | 2.34.2 | Apache-2.0 | requirements/requirements.lock, requirements/requirements-dev.lock |
+| requests-toolbelt | 1.0.0 | Apache 2.0 | requirements/requirements.lock, requirements/requirements-dev.lock |
+| setuptools | 84.0.0 | MIT | requirements/requirements-dev.lock |
+| sniffio | 1.3.1 | MIT OR Apache-2.0 | requirements/requirements.lock, requirements/requirements-dev.lock |
+| sqlite-vec | 0.1.9 | MIT License, Apache License, Version 2.0 | requirements/requirements.lock, requirements/requirements-dev.lock |
+| starlette | 1.7.0 | BSD-3-Clause | requirements/requirements.lock, requirements/requirements-dev.lock |
+| tenacity | 9.1.4 | Apache 2.0 | requirements/requirements.lock, requirements/requirements-dev.lock |
+| truststore | 0.10.4 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| typing_extensions | 4.16.0 | PSF-2.0 | requirements/requirements.lock, requirements/requirements-dev.lock |
+| typing-inspection | 0.4.4 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| urllib3 | 2.8.0 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
+| uuid_utils | 0.17.1 | BSD-3-Clause | requirements/requirements.lock, requirements/requirements-dev.lock |
+| uvicorn | 0.54.0 | BSD-3-Clause | requirements/requirements.lock, requirements/requirements-dev.lock |
+| websockets | 16.1.1 | BSD-3-Clause | requirements/requirements.lock, requirements/requirements-dev.lock |
+| wheel | 0.48.0 | MIT | requirements/requirements-dev.lock |
+| xxhash | 4.0.1 | BSD-2-Clause | requirements/requirements.lock, requirements/requirements-dev.lock |
+| zstandard | 0.25.0 | BSD-3-Clause | requirements/requirements.lock, requirements/requirements-dev.lock |
 
 ## npm 依赖
 

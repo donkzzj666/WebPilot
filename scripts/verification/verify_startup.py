@@ -28,7 +28,7 @@ from urllib.parse import urlsplit
 from urllib.request import ProxyHandler, build_opener
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 TRACE_FLAGS = (
     "LANGSMITH_TRACING", "LANGSMITH_TRACING_V2", "LANGCHAIN_TRACING",
     "LANGCHAIN_TRACING_V2", "LANGCHAIN_HANDLER",

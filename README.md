@@ -4,6 +4,15 @@
 
 工作台显示真实 API 健康状态。Worker 当前初始化检查点存储后等待退出信号，尚不领取或执行任务。任务创建、状态机、队列、受管浏览器网关及真实业务闭环按 [M1 清单](docs/m1/README.md) 后续任务实现。
 
+## 第一次阅读
+
+先按下方步骤安装和启动，再阅读 [目录与代码导读](docs/project-structure.md)。导读解释每个目录负责什么、前端如何访问 API，以及修改页面或接口时应从哪个文件开始。
+
+- 想运行项目：从本页的“环境与安装”开始。
+- 想理解代码：[目录与代码导读](docs/project-structure.md)。
+- 想查看需求和进度：[文档导航](docs/README.md)。
+- 想运行测试：[测试说明](tests/README.md)；日常统一入口为 `./scripts/check.sh`。
+
 ## 环境与安装
 
 已验证环境：macOS 15.3.1 / Apple Silicon，Python **3.12.14**（实际链接 SQLite **3.53.1**），Node **24.19.0**，npm **10.8.2**。版本记录见 [构建清单](config/build-manifest.json) 和 [许可证清单](docs/m1/dependencies.md)。其他平台尚未验收。
@@ -14,7 +23,7 @@
 ./scripts/bootstrap.sh
 ```
 
-脚本创建项目 `.venv`，按带 SHA-256 的 `requirements-dev.lock` 安装 Python 全部依赖，按 `frontend/package-lock.json` 执行 `npm ci`，将 Playwright 对应 Chromium 安装到 `.cache/ms-playwright`。它只修改项目目录，不修改系统 Python、Node 或全局 npm 包。首次安装需要连接 PyPI、npm registry 和 Playwright 官方下载源。
+脚本创建项目 `.venv`，按带 SHA-256 的 `requirements/requirements-dev.lock` 安装 Python 全部依赖，按 `frontend/package-lock.json` 执行 `npm ci`，将 Playwright 对应 Chromium 安装到 `.cache/ms-playwright`。它只修改项目目录，不修改系统 Python、Node 或全局 npm 包。首次安装需要连接 PyPI、npm registry 和 Playwright 官方下载源。
 
 脚本先检查实际 Python 的 SQLite 修复版本、WAL 和 FTS5 查询能力。默认系统 Python 3.9 / SQLite 3.43 不可用于本项目。脚本优先寻找 Python 3.12 和 Node 24，也支持本机已有的 Codex runtime；无合适运行时或自动找到的 Python 不满足 SQLite 条件时，用绝对路径指定：
 
@@ -27,7 +36,7 @@ WEBAGENT_NPM_CLI=/absolute/path/to/npm/bin/npm-cli.js \
 
 SQLite 允许 3.51.3 及以后，或官方修复的 3.44.6+（3.44 分支）、3.50.7+（3.50 分支）；不能单看系统 `sqlite3` 命令的版本。[官方 WAL 修复说明](https://www.sqlite.org/wal.html)
 
-`requirements.lock` 是运行依赖；`requirements-dev.lock` 加入验证和锁定工具。两者均固定传递依赖及哈希。依赖升级应先重做受影响集成，再更新锁与清单。
+`requirements/requirements.lock` 是运行依赖；`requirements/requirements-dev.lock` 加入验证和锁定工具。两者均固定传递依赖及哈希。依赖升级应先重做受影响集成，再更新锁与清单。
 
 ## 分别启动三个进程
 
@@ -70,11 +79,11 @@ SQLite 允许 3.51.3 及以后，或官方修复的 3.44.6+（3.44 分支）、3
 单独验证或显示测试浏览器：
 
 ```sh
-.venv/bin/python scripts/verify_m1_01.py --headed
-.venv/bin/python scripts/verify_startup.py
-.venv/bin/python scripts/build_manifest.py --check
+.venv/bin/python scripts/verification/verify_m1_01.py --headed
+.venv/bin/python scripts/verification/verify_startup.py
+.venv/bin/python scripts/dependencies/build_manifest.py --check
 # 在全新目录中按锁重建环境并复验（需要安装源网络）
-.venv/bin/python scripts/verify_clean_install.py
+.venv/bin/python scripts/verification/verify_clean_install.py
 ```
 
 异步集成仅使用固定本机合成页面，图设置 `durability="sync"`，在独立业务库写测试观察，在图库保存检查点，关闭后重读检查点。它不实现 M1-16 产品执行循环，不代替 M1-17 的崩溃恢复。
@@ -87,10 +96,12 @@ SQLite 允许 3.51.3 及以后，或官方修复的 3.44.6+（3.44 分支）、3
 |---|---|
 | `frontend/` | React/TypeScript 启动状态页与 Vite 配置 |
 | `backend/webagent/` | API、独立 Worker、运行时检查与存储初始化 |
+| `requirements/` | Python 依赖声明与固定版本／哈希锁 |
 | `data/business.sqlite3` | 业务库位置；本项仅初始化 WAL，业务实体和迁移留 M1-02 |
 | `data/graph.sqlite3` | Worker 的 AsyncSqliteSaver 所有，不混用业务检查点 |
-| `scripts/` | 安装、独立启动、集成验证、构建清单入口 |
-| `tests/` | SQLite 修复门槛、存储边界、进程及网络审计分类测试 |
+| `scripts/` | 常用安装／启动／检查入口；内部按 `verification/`、`dependencies/` 分类 |
+| `tests/unit/` | SQLite 修复门槛、存储边界、进程及网络审计分类测试 |
+| `tests/fixtures/m0/` | M0 合成计分夹具与 GitHub CI 验收，不是产品业务代码 |
 | `config/` | 可复核的依赖／运行时／浏览器版本清单 |
 | `artifacts/verification/M1-01/` | 本项测试输出；测试库不作为正式业务数据 |
 | `docs/m0/`、`experiments/` | 已有契约、准备材料和历史实验；不由运行服务加载 |

@@ -46,9 +46,9 @@ if [ ! -x .venv/bin/python ]; then
 fi
 PYTHONPATH="$ROOT/backend" .venv/bin/python -m webagent doctor
 .venv/bin/python -m pip --isolated install --index-url https://pypi.org/simple \
-  --cache-dir "$ROOT/.cache/pip" --require-hashes -r requirements-dev.lock
+  --cache-dir "$ROOT/.cache/pip" --require-hashes -r requirements/requirements-dev.lock
 .venv/bin/python -m pip check
 ./scripts/npm.sh ci --prefix frontend --cache "$ROOT/.cache/npm" --no-audit --no-fund
 PLAYWRIGHT_BROWSERS_PATH="$ROOT/.cache/ms-playwright" .venv/bin/python -m playwright install chromium
-.venv/bin/python scripts/build_manifest.py --check
+.venv/bin/python scripts/dependencies/build_manifest.py --check
 echo "Bootstrap complete. Start api, worker and frontend in separate terminals with scripts/dev.sh."

@@ -23,11 +23,11 @@ import subprocess
 import sys
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 BUILD_FILE = ROOT / "config/build-manifest.json"
 BROWSER_FILE = ROOT / "config/browser-lock.json"
 DEPENDENCIES_FILE = ROOT / "docs/m1/dependencies.md"
-LOCKS = ("requirements.lock", "requirements-dev.lock", "frontend/package-lock.json")
+LOCKS = ("requirements/requirements.lock", "requirements/requirements-dev.lock", "frontend/package-lock.json")
 VERSION_FILES = (".python-version", ".node-version")
 
 
@@ -244,8 +244,8 @@ def table_cell(value: object) -> str:
 def dependency_document(build: dict, browsers: dict, generated_at: str) -> str:
     lines = [
         "# M1-01 依赖版本与许可清单", "",
-        f"生成时间（UTC）：{generated_at}。由 `scripts/build_manifest.py` 离线读取已安装元数据与锁文件生成。", "",
-        "仅在依赖升级并完成验证后显式更新；日常启动不重写。使用 `.venv/bin/python scripts/build_manifest.py --check` 检查漂移。", "",
+        f"生成时间（UTC）：{generated_at}。由 `scripts/dependencies/build_manifest.py` 离线读取已安装元数据与锁文件生成。", "",
+        "仅在依赖升级并完成验证后显式更新；日常启动不重写。使用 `.venv/bin/python scripts/dependencies/build_manifest.py --check` 检查漂移。", "",
         "完整字段、原许可路径和 SHA-256 见 [build-manifest.json](../../config/build-manifest.json)；浏览器版本、修订与二进制摘要见 [browser-lock.json](../../config/browser-lock.json)。", "",
         "## 运行时与锁定范围", "",
         "| 项目 | 已核实版本 / 范围 |", "| --- | --- |",

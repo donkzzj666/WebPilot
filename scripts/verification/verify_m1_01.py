@@ -27,7 +27,7 @@ from typing import TypedDict
 from urllib.parse import urlsplit
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 TRACE_FLAGS = (
     "LANGSMITH_TRACING", "LANGSMITH_TRACING_V2", "LANGCHAIN_TRACING", "LANGCHAIN_TRACING_V2"
 )
@@ -332,7 +332,7 @@ def main() -> int:
     output.mkdir(parents=True, exist_ok=False)
     python_audit = PythonNetworkAudit(output / "python-network-audit.jsonl")
     sys.addaudithook(python_audit)
-    os.environ["NODE_OPTIONS"] = f'--require "{ROOT / "scripts" / "network-audit.cjs"}"'
+    os.environ["NODE_OPTIONS"] = f'--require "{ROOT / "scripts" / "verification" / "network-audit.cjs"}"'
     os.environ["WEBAGENT_NETWORK_AUDIT"] = str(output / "node-network-audit.jsonl")
     report = {
         "task": "M1-01", "started_at": datetime.now(timezone.utc).isoformat(), "passed": False,

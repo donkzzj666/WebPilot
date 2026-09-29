@@ -63,7 +63,7 @@ def test_inherited_v2_tracing_is_overridden(monkeypatch):
 
 def test_worker_runs_without_api_and_saver_owns_graph_tables(tmp_path):
     env = {**os.environ, "WEBAGENT_DATA_DIR": str(tmp_path),
-           "PYTHONPATH": str(Path(__file__).resolve().parents[1] / "backend")}
+           "PYTHONPATH": str(Path(__file__).resolve().parents[2] / "backend")}
     result = subprocess.run([sys.executable, "-m", "webagent", "worker", "--once"],
                             env=env, capture_output=True, text=True, timeout=30)
     assert result.returncode == 0, result.stderr

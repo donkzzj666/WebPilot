@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 spec = importlib.util.spec_from_file_location(
-    "m1_probe", Path(__file__).resolve().parents[1] / "scripts" / "verify_m1_01.py"
+    "m1_probe", Path(__file__).resolve().parents[2] / "scripts" / "verification" / "verify_m1_01.py"
 )
 probe = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(probe)

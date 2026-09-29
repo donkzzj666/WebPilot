@@ -49,11 +49,11 @@
   },
   "source_files": [
     {
-      "path": "requirements.lock",
+      "path": "requirements/requirements.lock",
       "sha256": "63cdf1b2bfa9a8c946ebe48de2f88dea4e205dbbaabac17eee33067f3df9b300"
     },
     {
-      "path": "requirements-dev.lock",
+      "path": "requirements/requirements-dev.lock",
       "sha256": "ba1ffc965a5c3b4a9e2ac142143b960ea249ba72728d9552029b6825878bfe47"
     },
     {
@@ -91,8 +91,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -114,8 +114,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -139,8 +139,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -162,8 +162,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -185,7 +185,7 @@
         }
       ],
       "locked_in": [
-        "requirements-dev.lock"
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -209,8 +209,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -232,8 +232,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -255,8 +255,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -280,8 +280,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -303,8 +303,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -330,8 +330,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -355,8 +355,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -380,8 +380,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -405,8 +405,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -430,8 +430,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -455,8 +455,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -478,8 +478,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -501,7 +501,7 @@
         }
       ],
       "locked_in": [
-        "requirements-dev.lock"
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -525,8 +525,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -550,8 +550,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -575,8 +575,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -600,8 +600,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -623,8 +623,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -646,8 +646,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -669,8 +669,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -692,8 +692,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -715,8 +715,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -733,8 +733,8 @@
       },
       "license_files": [],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -768,8 +768,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -798,8 +798,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -829,8 +829,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -854,7 +854,7 @@
         }
       ],
       "locked_in": [
-        "requirements-dev.lock"
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -878,7 +878,7 @@
         }
       ],
       "locked_in": [
-        "requirements-dev.lock"
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -916,8 +916,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -941,7 +941,7 @@
         }
       ],
       "locked_in": [
-        "requirements-dev.lock"
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -963,8 +963,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -986,8 +986,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1011,8 +1011,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1034,7 +1034,7 @@
         }
       ],
       "locked_in": [
-        "requirements-dev.lock"
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1056,7 +1056,7 @@
         }
       ],
       "locked_in": [
-        "requirements-dev.lock"
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1078,7 +1078,7 @@
         }
       ],
       "locked_in": [
-        "requirements-dev.lock"
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1102,8 +1102,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1131,8 +1131,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1156,8 +1156,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1243,7 +1243,7 @@
         }
       ],
       "locked_in": [
-        "requirements-dev.lock"
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1276,8 +1276,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1294,8 +1294,8 @@
       },
       "license_files": [],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1317,8 +1317,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1342,8 +1342,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1365,8 +1365,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1388,8 +1388,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1411,8 +1411,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1434,8 +1434,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1457,8 +1457,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1480,8 +1480,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1503,8 +1503,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1526,7 +1526,7 @@
         }
       ],
       "locked_in": [
-        "requirements-dev.lock"
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1548,8 +1548,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     },
     {
@@ -1571,8 +1571,8 @@
         }
       ],
       "locked_in": [
-        "requirements.lock",
-        "requirements-dev.lock"
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
       ]
     }
   ],
@@ -2685,5 +2685,5 @@
   },
   "license_scope": "Licence labels are copied from installed Python METADATA and npm package-lock metadata; original licence/notice paths and hashes are recorded when present. Optional npm packages remain listed even when not installed on this platform. No licence is inferred from a package name.",
   "browser_lock": "config/browser-lock.json",
-  "generated_at": "2026-09-29T04:16:04.774521+00:00"
+  "generated_at": "2026-09-29T06:00:47.958943+00:00"
 }

@@ -9,7 +9,7 @@ import shutil
 import subprocess
 import sys
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 
 
 def main() -> int:
@@ -21,10 +21,10 @@ def main() -> int:
     report = {"task": "M1-01", "passed": False, "clean_checkout": str(target), "commands": [],
               "scope": "New venv and node_modules from locks; shared package/download caches, no copied installation or business data."}
     try:
-        for directory in ("backend", "frontend", "scripts", "tests", "config"):
+        for directory in ("backend", "frontend", "scripts", "tests", "config", "requirements"):
             shutil.copytree(ROOT / directory, target / directory,
                             ignore=shutil.ignore_patterns("node_modules", "dist", "__pycache__", ".DS_Store"))
-        for name in ("pyproject.toml", "requirements.in", "requirements-dev.in", "requirements.lock", "requirements-dev.lock", ".python-version", ".node-version"):
+        for name in ("pyproject.toml", ".python-version", ".node-version"):
             shutil.copy2(ROOT / name, target / name)
         (target / "docs/m1").mkdir(parents=True)
         shutil.copy2(ROOT / "docs/m1/dependencies.md", target / "docs/m1/dependencies.md")

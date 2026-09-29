@@ -29,4 +29,4 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 acceptance_test.py
+          python3 tests/fixtures/m0/acceptance_test.py
