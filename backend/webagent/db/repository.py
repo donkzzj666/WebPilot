@@ -1,8 +1,9 @@
 """Small persistence helpers; callers own the short transaction.
 
-These helpers store already-validated business input. Full task compilation,
-permission validation, state transitions and HTTP idempotency belong to later
-services. No API or model may submit arbitrary SQL through this module.
+These helpers store already-validated business input. Full task compilation
+and permission validation are owned by higher-level services. HTTP idempotency
+and task compilation live in webagent.tasks. Run state
+transitions use webagent.state and database triggers. No API or model may submit arbitrary SQL through this module.
 """
 from datetime import datetime, timezone
 import hashlib

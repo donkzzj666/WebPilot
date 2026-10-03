@@ -50,11 +50,11 @@
   "source_files": [
     {
       "path": "requirements/requirements.lock",
-      "sha256": "63cdf1b2bfa9a8c946ebe48de2f88dea4e205dbbaabac17eee33067f3df9b300"
+      "sha256": "f59760b7dc80f8fcc3806e8330b064c7f36012712d5cbe0659d5690f6dc180d2"
     },
     {
       "path": "requirements/requirements-dev.lock",
-      "sha256": "ba1ffc965a5c3b4a9e2ac142143b960ea249ba72728d9552029b6825878bfe47"
+      "sha256": "fa2ac89922c115cf9bc80914ba1d1f34c76a76430ea4e3dbd07bb262a6be6975"
     },
     {
       "path": "frontend/package-lock.json",
@@ -214,6 +214,29 @@
       ]
     },
     {
+      "name": "cffi",
+      "version": "2.1.1",
+      "license": "MIT-0",
+      "license_source": "package METADATA / License-Expression",
+      "license_expression": "MIT-0",
+      "license_metadata": null,
+      "license_classifiers": [],
+      "metadata_file": {
+        "path": ".venv/lib/python3.12/site-packages/cffi-2.1.1.dist-info/METADATA",
+        "sha256": "558bafb9093a8e790175d9ecff9688382981d744877dad86fd6770db0f4dc918"
+      },
+      "license_files": [
+        {
+          "path": ".venv/lib/python3.12/site-packages/cffi-2.1.1.dist-info/licenses/LICENSE",
+          "sha256": "5ba24ddc57067f9249add644c3afc41a5d6dc37e23433ef759d95df370b0af63"
+        }
+      ],
+      "locked_in": [
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
+      ]
+    },
+    {
       "name": "charset-normalizer",
       "version": "3.5.1",
       "license": "MIT",
@@ -252,6 +275,37 @@
         {
           "path": ".venv/lib/python3.12/site-packages/click-8.5.0.dist-info/licenses/LICENSE.txt",
           "sha256": "9a8ad106a394e853bfe21f42f4e72d592819a22805d991b5f3275029292b658d"
+        }
+      ],
+      "locked_in": [
+        "requirements/requirements.lock",
+        "requirements/requirements-dev.lock"
+      ]
+    },
+    {
+      "name": "cryptography",
+      "version": "50.0.1",
+      "license": "Apache-2.0 OR BSD-3-Clause",
+      "license_source": "package METADATA / License-Expression",
+      "license_expression": "Apache-2.0 OR BSD-3-Clause",
+      "license_metadata": null,
+      "license_classifiers": [],
+      "metadata_file": {
+        "path": ".venv/lib/python3.12/site-packages/cryptography-50.0.1.dist-info/METADATA",
+        "sha256": "8e9b5570da4686848ee5c6bb83fffc224bcddf9793136731dd050ce0c05fffe2"
+      },
+      "license_files": [
+        {
+          "path": ".venv/lib/python3.12/site-packages/cryptography-50.0.1.dist-info/licenses/LICENSE",
+          "sha256": "3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb"
+        },
+        {
+          "path": ".venv/lib/python3.12/site-packages/cryptography-50.0.1.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe"
+        },
+        {
+          "path": ".venv/lib/python3.12/site-packages/cryptography-50.0.1.dist-info/licenses/LICENSE.BSD",
+          "sha256": "602c4c7482de6479dd2e9793cda275e5e63d773dacd1eca689232ab7008fb4fb"
         }
       ],
       "locked_in": [
@@ -941,6 +995,29 @@
         }
       ],
       "locked_in": [
+        "requirements/requirements-dev.lock"
+      ]
+    },
+    {
+      "name": "pycparser",
+      "version": "3.0",
+      "license": "BSD-3-Clause",
+      "license_source": "package METADATA / License-Expression",
+      "license_expression": "BSD-3-Clause",
+      "license_metadata": null,
+      "license_classifiers": [],
+      "metadata_file": {
+        "path": ".venv/lib/python3.12/site-packages/pycparser-3.0.dist-info/METADATA",
+        "sha256": "f547a60b0ab54cc2f242213d1f87960ad80df7dd5dfeb98d17a444d48bfb6b93"
+      },
+      "license_files": [
+        {
+          "path": ".venv/lib/python3.12/site-packages/pycparser-3.0.dist-info/licenses/LICENSE",
+          "sha256": "0c846399369ea76ddd7b5c44fe6d16497415fcf015f5cbb508c24bf98b81c5b1"
+        }
+      ],
+      "locked_in": [
+        "requirements/requirements.lock",
         "requirements/requirements-dev.lock"
       ]
     },
@@ -2675,7 +2752,7 @@
     }
   ],
   "package_counts": {
-    "python_installed": 59,
+    "python_installed": 62,
     "npm_locked_including_optional": 70
   },
   "unlocked_installed_python_packages": [],
@@ -2685,5 +2762,5 @@
   },
   "license_scope": "Licence labels are copied from installed Python METADATA and npm package-lock metadata; original licence/notice paths and hashes are recorded when present. Optional npm packages remain listed even when not installed on this platform. No licence is inferred from a package name.",
   "browser_lock": "config/browser-lock.json",
-  "generated_at": "2026-09-29T06:00:47.958943+00:00"
+  "generated_at": "2026-10-01T11:29:09.257339+00:00"
 }

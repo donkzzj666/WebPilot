@@ -21,7 +21,7 @@ def records(db,run='run-1',suffix='1'):
            sha256='c'*64,locator_or_page='body',excerpt='synthetic',sensitivity='public',
            capture_status='COMPLETE',artifact_kind='text')
     insert(db,'run_budgets',budget_record_id='budget-'+suffix,run_id=run)
-    event=db.execute("INSERT INTO task_events(task_id,run_id,event_type,state_version,occurred_at,payload_json) VALUES ('task-1',?,'state_changed',0,?,'{}')",(run,NOW)).lastrowid
+    event=db.execute("INSERT INTO task_events(task_id,run_id,event_type,state_version,occurred_at,payload_json) VALUES ('task-1',?,'wait_registered',0,?,'{}')",(run,NOW)).lastrowid
     insert(db,'run_checkpoints',checkpoint_id='checkpoint-'+suffix,task_id='task-1',run_id=run,
            contract_version=1,current_subgoal='subgoal',current_object_id='object',action_sequence=1,
            business_event_id=event,budget_record_ref='budget-'+suffix,epoch=1,saved_at=NOW)

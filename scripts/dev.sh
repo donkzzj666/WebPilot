@@ -17,6 +17,9 @@ case "$COMMAND" in
     if [ ! -x .runtime/node ] || [ ! -d frontend/node_modules ]; then
       echo "Run scripts/bootstrap.sh first." >&2; exit 1
     fi
+    # Listening overrides bypass the reviewed local origin policy. Configure
+    # WEBAGENT_UI_PORT / WEBAGENT_API_PORT instead of arbitrary Vite flags.
+    if [ "$#" -ne 0 ]; then echo "Frontend options are disabled; use WEBAGENT_UI_PORT." >&2; exit 2; fi
     cd frontend
     exec ../.runtime/node node_modules/vite/bin/vite.js "$@"
     ;;

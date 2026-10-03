@@ -14,11 +14,11 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def main() -> int:
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
-    output = ROOT / "artifacts/verification/M1-02" / f"clean-install-{stamp}"
+    output = ROOT / "artifacts/verification/M1-25" / f"clean-install-{stamp}"
     target = ROOT / ".cache" / f"clean-install-{stamp}"
     output.mkdir(parents=True, exist_ok=False)
     target.mkdir(parents=True, exist_ok=False)
-    report = {"task": "M1-02", "passed": False, "clean_checkout": str(target), "commands": [],
+    report = {"task": "M1-25", "passed": False, "clean_checkout": str(target), "commands": [],
               "scope": "New venv and node_modules from locks; shared package/download caches, no copied installation or business data."}
     try:
         for directory in ("backend", "frontend", "scripts", "tests", "config", "requirements"):
@@ -40,19 +40,22 @@ def main() -> int:
         for index, command in enumerate((["./scripts/bootstrap.sh"], ["./scripts/check.sh", "--headed"])):
             log = output / f"{index + 1:02d}-command.log"
             with log.open("w") as stream:
+                # The complete check includes the M1-24 fixed fault groups.
+                # Paid public acceptance remains an explicit separate command.
                 result = subprocess.run(command, cwd=target, env=env, stdout=stream,
-                                        stderr=subprocess.STDOUT, timeout=600)
+                                        stderr=subprocess.STDOUT, timeout=1200 if index == 0 else 1800)
             report["commands"].append({"command": command, "exit_code": result.returncode, "log": log.name})
             if result.returncode:
                 raise RuntimeError(f"{command[0]} failed; see {log.name}")
-        for directory in (target / "artifacts/verification/M1-02").iterdir():
-            shutil.copytree(directory, output / directory.name)
+        for directory in (target / "artifacts/verification/M1-25").iterdir():
+            shutil.copytree(directory, output / directory.name,
+                            ignore=shutil.ignore_patterns('.security', '.private', '.owned'))
         report["passed"] = True
     except Exception as error:
         report["error"] = str(error)
     report["artifact_sha256"] = {
         str(path.relative_to(output)): hashlib.sha256(path.read_bytes()).hexdigest()
-        for path in sorted(output.rglob("*")) if path.is_file()
+        for path in sorted(output.rglob("*")) if path.is_file() and not any(part in ('.security', '.private', '.owned') for part in path.parts)
     }
     (output / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"passed": report["passed"], "report": str(output / "report.json"), "error": report.get("error")}, ensure_ascii=False))

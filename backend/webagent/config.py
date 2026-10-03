@@ -1,4 +1,4 @@
-"""Local bootstrap configuration, not the M1-07 model/config snapshot service."""
+"""Local bootstrap paths; versioned model settings live in webagent.settings."""
 
 from dataclasses import dataclass
 import os
@@ -35,4 +35,3 @@ class Settings:
     @property
     def graph_db(self) -> Path:
         return self.data_dir / "graph.sqlite3"
-

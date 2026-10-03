@@ -4,10 +4,11 @@ import sqlite3
 import subprocess
 import sys
 
-from fastapi.testclient import TestClient
+from api_support import AuthenticatedTestClient as TestClient
 import pytest
 
-from webagent.api import create_app
+from webagent.db import LATEST_VERSION
+from api_support import create_test_app as create_app
 from webagent.config import Settings, disable_external_tracing
 from webagent.runtime import check_runtime, sqlite_wal_fixed
 from webagent.storage import initialize_business_storage
@@ -34,7 +35,7 @@ def test_storage_migrates_business_schema_and_does_not_touch_graph(tmp_path):
     assert not settings.graph_db.exists()
     with sqlite3.connect(settings.business_db) as connection:
         assert connection.execute("PRAGMA journal_mode").fetchone()[0] == "wal"
-        assert connection.execute("PRAGMA user_version").fetchone()[0] == 2
+        assert connection.execute("PRAGMA user_version").fetchone()[0] == LATEST_VERSION
         assert connection.execute("SELECT COUNT(*) FROM tasks").fetchone()[0] == 0
 
 
@@ -42,9 +43,10 @@ def test_api_health_does_not_claim_worker_or_task_success(tmp_path):
     with TestClient(create_app(Settings(tmp_path))) as client:
         result = client.get("/health")
         assert result.status_code == 200
-        assert result.json()["task_execution_enabled"] is False
+        assert result.json()["task_execution_enabled"] is True
+        assert result.json()["stage"] == "M1-25"
         assert result.json()["storage"]["graph"] == "owned_by_worker"
-        assert client.post("/v1/tasks", json={"instruction": "example"}).status_code == 404
+        assert client.post("/v1/tasks", json={"instruction": "example"}).status_code == 422
     assert not (tmp_path / "graph.sqlite3").exists()
 
 
@@ -69,11 +71,12 @@ def test_worker_runs_without_api_and_saver_owns_graph_tables(tmp_path):
                             env=env, capture_output=True, text=True, timeout=30)
     assert result.returncode == 0, result.stderr
     assert '"event": "worker_ready"' in result.stdout
+    assert '"stage": "M1-25"' in result.stdout
     assert '"event": "worker_stopped"' in result.stdout
     with sqlite3.connect(tmp_path / "graph.sqlite3") as connection:
         assert connection.execute("PRAGMA journal_mode").fetchone()[0] == "wal"
         tables = {row[0] for row in connection.execute("SELECT name FROM sqlite_master")}
         assert "checkpoints" in tables
     with sqlite3.connect(tmp_path / "business.sqlite3") as connection:
-        assert connection.execute("PRAGMA user_version").fetchone()[0] == 2
+        assert connection.execute("PRAGMA user_version").fetchone()[0] == LATEST_VERSION
         assert connection.execute("SELECT COUNT(*) FROM tasks").fetchone()[0] == 0

@@ -73,5 +73,5 @@
     }
   ],
   "license_note": "Chrome for Testing ABOUT points to chrome://credits for Chromium and third-party software, and chrome://terms for its terms. The installed resources.pak and headless LICENSE.headless_shell are retained as local notice resources; this is an inventory, not a claim that every browser component uses one licence.",
-  "generated_at": "2026-09-29T04:16:04.774521+00:00"
+  "generated_at": "2026-10-01T11:29:09.257339+00:00"
 }

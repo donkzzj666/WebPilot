@@ -4,7 +4,7 @@ import shutil
 import sqlite3
 
 import pytest
-from webagent.db import connect, transaction, migrate, MigrationError
+from webagent.db import LATEST_VERSION, connect, transaction, migrate, MigrationError
 from webagent.db import migrations
 from webagent.db.repository import get_contract, list_runs
 from conftest import seed
@@ -16,7 +16,7 @@ def test_empty_and_legacy_wal_upgrade_without_touching_graph(tmp_path):
     path=tmp_path/'business.sqlite3'
     with sqlite3.connect(path) as db:
         db.execute('PRAGMA journal_mode=WAL')
-    assert migrate(path)=={'previous_version':0,'schema_version':2,'applied':2}
+    assert migrate(path)=={'previous_version':0,'schema_version':LATEST_VERSION,'applied':LATEST_VERSION}
     with connect(path) as db:
         assert db.execute('PRAGMA journal_mode').fetchone()[0]=='wal'
         assert db.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
@@ -35,11 +35,11 @@ def test_populated_v1_upgrade_preserves_contract_and_terminal_run(tmp_path):
         original=seed(db)
         db.execute("UPDATE runs SET state='CANCELLED',ended_at='2026-09-29T00:00:00.000000Z' WHERE run_id='run-1'")
         before=list_runs(db,'task-1')
-    assert migrate(path)['applied']==1
+    assert migrate(path)['applied']==LATEST_VERSION-1
     with connect(path) as db:
         assert get_contract(db,'task-1',1)==original
         assert list_runs(db,'task-1')==before
-        assert db.execute("SELECT COUNT(*) FROM schema_migrations").fetchone()[0]==2
+        assert db.execute("SELECT COUNT(*) FROM schema_migrations").fetchone()[0]==LATEST_VERSION
     with pytest.raises(MigrationError,match='Downgrades'):
         migrate(path,target=1)
 
@@ -61,7 +61,7 @@ def test_failed_upgrade_rolls_back_ddl_data_and_version(tmp_path,monkeypatch):
         assert not db.execute("SELECT 1 FROM sqlite_schema WHERE name='transient'").fetchone()
         assert len(list_runs(db,'task-1'))==1
     monkeypatch.undo()
-    assert migrate(path)['schema_version']==2
+    assert migrate(path)['schema_version']==LATEST_VERSION
 
 
 @pytest.mark.parametrize('damage', ['checksum','newer','schema','missing_history'])
@@ -103,4 +103,4 @@ def test_failed_first_install_is_empty_and_can_retry(tmp_path,monkeypatch):
         assert db.execute('PRAGMA application_id').fetchone()[0]==0
         assert not db.execute("SELECT name FROM sqlite_schema WHERE name NOT LIKE 'sqlite_%'").fetchall()
     monkeypatch.undo()
-    assert migrate(path)['applied']==2
+    assert migrate(path)['applied']==LATEST_VERSION

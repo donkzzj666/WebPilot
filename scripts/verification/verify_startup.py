@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify independent M1-02 processes and repeated startup using isolated local data.
+"""Verify independent M1-25 processes and repeated startup using isolated local data.
 
 Uses only this checkout's dev entry point and bundled Playwright Chromium. This
 probe checks process availability, storage initialization and the health UI; it
@@ -25,7 +25,7 @@ import traceback
 from typing import Callable
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
-from urllib.request import ProxyHandler, build_opener
+from urllib.request import ProxyHandler, Request, build_opener
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -43,9 +43,9 @@ def now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
-def request(url: str) -> tuple[int, bytes]:
+def request(url: str, headers: dict | None = None) -> tuple[int, bytes]:
     try:
-        with HTTP.open(url, timeout=2) as response:
+        with HTTP.open(Request(url, headers=headers or {}), timeout=2) as response:
             return response.status, response.read()
     except HTTPError as error:
         return error.code, error.read()
@@ -143,6 +143,9 @@ def verify(output: Path, report: dict) -> None:
 
     data = output / "data"
     data.mkdir()
+    sys.path.insert(0, str(ROOT / "backend"))
+    from webagent.security import load_or_create_token
+    api_headers = {"Authorization": "Bearer " + load_or_create_token(data)}
     api_port, ui_port = free_ports()
     api_url = f"http://127.0.0.1:{api_port}"
     ui_url = f"http://127.0.0.1:{ui_port}"
@@ -182,17 +185,18 @@ def verify(output: Path, report: dict) -> None:
         assert result["exit_code"] in (0, -signal.SIGTERM, 128 + signal.SIGTERM), f"Unexpected {process.name} exit"
 
     def healthy() -> bool:
-        status, body = request(api_url + "/health")
+        status, body = request(api_url + "/health", api_headers)
         if status != 200:
             return False
         value = json.loads(body)
-        return value.get("status") == "ok" and value.get("task_execution_enabled") is False
+        return (value.get("status") == "ok" and value.get("stage") == "M1-25"
+                and value.get("task_execution_enabled") is True)
 
     try:
         frontend = start("first-frontend", "frontend")
         wait_for(lambda: request(ui_url)[0] == 200, "frontend", [frontend])
-        assert request(api_url + "/health")[0] == 0
-        assert not list(data.iterdir()), "Frontend must not initialize backend storage"
+        assert request(api_url + "/health", api_headers)[0] == 0
+        assert not list(data.glob("*.sqlite3*")), "Frontend must not initialize backend databases"
         with sync_playwright() as playwright:
             browser = playwright.chromium.launch(headless=True, args=[
                 "--disable-background-networking", "--disable-component-update",
@@ -218,9 +222,10 @@ def verify(output: Path, report: dict) -> None:
             page.on("pageerror", lambda error: errors.append(str(error)))
             page.goto(ui_url, wait_until="networkidle")
             page.get_by_role("heading", name="API 未就绪", exact=True).wait_for()
-            page.get_by_text("任务执行未开放", exact=True).wait_for()
+            page.get_by_role("heading", name="任务入口", exact=True).wait_for()
+            page.get_by_role("heading", name="把目标变成明确的任务", exact=True).wait_for()
             page.screenshot(path=str(output / "01-frontend-only.png"), full_page=True)
-            record("frontend_starts_without_api", api_status=request(api_url + "/health")[0], screenshot="01-frontend-only.png")
+            record("frontend_starts_without_api", api_status=request(api_url + "/health", api_headers)[0], screenshot="01-frontend-only.png")
 
             api = start("first-api", "api")
             wait_for(healthy, "API health", [api, frontend])
@@ -228,17 +233,33 @@ def verify(output: Path, report: dict) -> None:
             page.get_by_role("button", name="重新检查连接", exact=True).click()
             page.get_by_role("heading", name="API 已连接", exact=True).wait_for()
             page.screenshot(path=str(output / "02-api-connected.png"), full_page=True)
-            record("api_health_visible_in_browser", health=json.loads(request(api_url + "/health")[1]), screenshot="02-api-connected.png")
+            record("api_health_visible_in_browser", health=json.loads(request(api_url + "/health", api_headers)[1]), screenshot="02-api-connected.png")
+            assert request(api_url + '/v1/identities/sites', api_headers)[0] == 503
+            record('login_api_requires_worker')
 
             worker = start("first-worker", "worker")
-            wait_for(lambda: worker.contains('"event": "worker_ready"'), "Worker readiness", [worker, api, frontend])
+            wait_for(lambda: worker.contains('"event": "worker_ready"') and worker.contains('"stage": "M1-25"'), "Worker readiness", [worker, api, frontend])
+            status, metadata = request(api_url + '/v1/identities/sites', api_headers)
+            assert status == 200 and [item['site_id'] for item in json.loads(metadata)] == ['github']
+            record('login_api_reaches_independent_worker')
+            status, body = request(api_url + '/v1/scheduler', api_headers)
+            scheduler = json.loads(body)
+            first_generation = max(item['generation'] for item in scheduler['workers'])
+            assert status == 200 and scheduler['queue'] == [] and scheduler['leases'] == []
+            assert sum(item['state'] == 'ACTIVE' for item in scheduler['workers']) == 1
+            record('scheduler_readonly_api_and_idle_worker_registration')
+            status, body = request(api_url + '/v1/budgets', api_headers)
+            quota = json.loads(body)
+            assert status == 200 and quota['public']['used'] == 0 and quota['public']['ordinary']['capacity'] == 42
+            assert quota['public']['monitoring']['reserved'] == 8 and quota['timezone'] == 'Asia/Shanghai'
+            record('budget_readonly_api_does_not_debit_idle_worker')
             before = databases(data)
             record("independent_worker_initializes_two_databases", storage=before)
 
             stop(api)
             worker.assert_alive()
             frontend.assert_alive()
-            assert request(api_url + "/health")[0] == 0
+            assert request(api_url + "/health", api_headers)[0] == 0
             assert request(ui_url)[0] == 200
             page.get_by_role("button", name="重新检查连接", exact=True).click()
             page.get_by_role("heading", name="API 未就绪", exact=True).wait_for()
@@ -253,27 +274,42 @@ def verify(output: Path, report: dict) -> None:
 
             # Start the Worker first to prove it has no API startup dependency.
             worker = start("restart-worker", "worker")
-            wait_for(lambda: worker.contains('"event": "worker_ready"'), "Worker-only restart", [worker])
-            assert request(api_url + "/health")[0] == 0
+            wait_for(lambda: worker.contains('"event": "worker_ready"') and worker.contains('"stage": "M1-25"'), "Worker-only restart", [worker])
+            assert request(api_url + "/health", api_headers)[0] == 0
             record("worker_starts_without_api")
             api = start("restart-api", "api")
             frontend = start("restart-frontend", "frontend")
             wait_for(healthy, "restarted API", [worker, api, frontend])
+            assert request(api_url + '/v1/identities/sites', api_headers)[0] == 200
             wait_for(lambda: request(ui_url)[0] == 200, "restarted frontend", [worker, api, frontend])
             page.reload(wait_until="networkidle")
             page.get_by_role("heading", name="API 已连接", exact=True).wait_for()
             after = databases(data)
-            assert before == after, "Repeated startup changed database schema or records"
+            # Each Worker start appends its durable generation; existing business
+            # rows and schemas remain identical across the same-directory restart.
+            for kind in before:
+                assert before[kind]['tables'] == after[kind]['tables']
+                assert before[kind]['integrity'] == after[kind]['integrity'] == 'ok'
+                for name, count in before[kind]['row_counts'].items():
+                    if name not in ('scheduler_workers', 'scheduler_generations'):
+                        assert count == after[kind]['row_counts'][name], name
+            status, body = request(api_url + '/v1/scheduler', api_headers)
+            scheduler = json.loads(body)
+            assert status == 200 and max(item['generation'] for item in scheduler['workers']) > first_generation
+            assert sum(item['state'] == 'ACTIVE' for item in scheduler['workers']) == 1
+            record('worker_restart_appends_generation_without_business_dispatch')
             page.screenshot(path=str(output / "04-restarted.png"), full_page=True)
             record("same_directory_restart_is_idempotent", storage=after, screenshot="04-restarted.png")
             context.close()
             browser.close()
 
-        stop(api)
         stop(worker)
+        assert request(api_url + '/v1/identities/sites', api_headers)[0] == 503 and healthy()
+        record('worker_shutdown_removes_login_rpc_without_stopping_api')
+        stop(api)
         stop(frontend)
         assert worker.contains('"event": "worker_stopped"')
-        assert request(api_url + "/health")[0] == 0 and request(ui_url)[0] == 0
+        assert request(api_url + "/health", api_headers)[0] == 0 and request(ui_url)[0] == 0
         record("second_cycle_sigterm_cleanup")
         assert not errors, f"Browser JavaScript errors: {errors}"
         assert not [item for item in requests if not item["allowed"]], "Page attempted a non-local request"
@@ -297,11 +333,11 @@ def main() -> int:
     parser.add_argument("--output-dir", type=Path, help="New evidence directory; existing directories are refused")
     args = parser.parse_args()
     stamp = datetime.now(timezone.utc).strftime("startup-%Y%m%dT%H%M%S.%fZ")
-    output = (args.output_dir or ROOT / "artifacts" / "verification" / "M1-02" / stamp).resolve()
+    output = (args.output_dir or ROOT / "artifacts" / "verification" / "M1-25" / stamp).resolve()
     output.mkdir(parents=True, exist_ok=False)
     report = {
-        "task": "M1-02", "probe": "independent-process-startup", "started_at": now(), "passed": False,
-        "scope": "Isolated local process startup/restart, health UI and migrated business/separate graph SQLite initialization. No model, credentials, business task, persistent scheduler, or crash-recovery acceptance.",
+        "task": "M1-25", "probe": "independent-process-startup", "started_at": now(), "passed": False,
+        "scope": "Isolated local process startup/restart, health UI, read-only scheduler registration and migrated business/separate graph SQLite initialization. No model, credentials or business task execution; scheduler competition/crash acceptance uses a separate probe.",
     }
     try:
         verify(output, report)
@@ -312,7 +348,7 @@ def main() -> int:
         report["finished_at"] = now()
         report["artifact_sha256"] = {
             str(path.relative_to(output)): hashlib.sha256(path.read_bytes()).hexdigest()
-            for path in sorted(output.rglob("*")) if path.is_file() and path.name != "report.json"
+            for path in sorted(output.rglob("*")) if path.is_file() and '.security' not in path.parts and '.private' not in path.parts and path.name != "report.json"
         }
         (output / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"passed": report["passed"], "report": str(output / "report.json"), "error": report.get("error", {}).get("message")}, ensure_ascii=False))

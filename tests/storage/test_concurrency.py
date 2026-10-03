@@ -2,7 +2,7 @@
 import multiprocessing
 import sqlite3
 import pytest
-from webagent.db import connect, transaction, migrate, StorageBusyError
+from webagent.db import LATEST_VERSION, connect, transaction, migrate, StorageBusyError
 from webagent.db.repository import add_contract, create_task
 from conftest import seed
 
@@ -65,7 +65,7 @@ def test_concurrent_migrations_are_idempotent(tmp_path):
     path=tmp_path/'business.sqlite3'
     assert compete(path,'migrate')==['ok']*4
     with connect(path) as db:
-        assert db.execute('SELECT COUNT(*) FROM schema_migrations').fetchone()[0]==2
+        assert db.execute('SELECT COUNT(*) FROM schema_migrations').fetchone()[0]==LATEST_VERSION
 
 
 def test_short_write_transactions_have_no_lost_updates(database):
