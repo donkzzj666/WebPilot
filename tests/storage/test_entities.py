@@ -11,7 +11,7 @@ NOW='2026-09-29T00:00:00.000000Z'
 def test_contract_versions_and_rerun_history(database):
     with connect(database) as db, transaction(db):
         old=seed(db)
-        db.execute("UPDATE runs SET state='CANCELLED',ended_at=? WHERE run_id='run-1'",(NOW,))
+        db.execute("UPDATE runs SET state='CANCELLED',state_version=state_version+1,ended_at=? WHERE run_id='run-1'",(NOW,))
         new=seed(db,run_id='run-2',version=2,parent='run-1')
         assert get_contract(db,'task-1',1)==old
         assert get_contract(db,'task-1',2)==new
@@ -39,7 +39,7 @@ def test_no_overwriting_history(database,statement):
 def test_terminal_run_cannot_resume_or_change(database):
     with connect(database) as db, transaction(db):
         seed(db)
-        db.execute("UPDATE runs SET state='CANCELLED',ended_at=?",(NOW,))
+        db.execute("UPDATE runs SET state='CANCELLED',state_version=state_version+1,ended_at=?",(NOW,))
     with pytest.raises(sqlite3.IntegrityError,match='terminal'):
         with connect(database) as db, transaction(db): db.execute("UPDATE runs SET state='QUEUED',ended_at=NULL")
 
@@ -71,7 +71,7 @@ def test_utc_timestamp_constraint(database,value):
     with pytest.raises(sqlite3.IntegrityError):
         with connect(database) as db, transaction(db):
             seed(db)
-            db.execute('INSERT INTO task_events(task_id,run_id,event_type,state_version,occurred_at,payload_json) VALUES (?,?,?,?,?,?)',('task-1','run-1','state_changed',0,value,'{}'))
+            db.execute('INSERT INTO task_events(task_id,run_id,event_type,state_version,occurred_at,payload_json) VALUES (?,?,?,?,?,?)',('task-1','run-1','wait_registered',0,value,'{}'))
 
 
 def test_canonical_serialization_and_explicit_transaction(database):
@@ -89,10 +89,10 @@ def test_event_ids_survive_reopen_and_only_committed_events_visible(database):
     ids=[]
     for _ in range(2):
         with connect(database) as db, transaction(db):
-            ids.append(db.execute('INSERT INTO task_events(task_id,run_id,event_type,state_version,occurred_at,payload_json) VALUES (?,?,?,?,?,?)',('task-1','run-1','state_changed',0,NOW,'{}')).lastrowid)
+            ids.append(db.execute('INSERT INTO task_events(task_id,run_id,event_type,state_version,occurred_at,payload_json) VALUES (?,?,?,?,?,?)',('task-1','run-1','wait_registered',0,NOW,'{}')).lastrowid)
     assert ids[1]>ids[0]
     with connect(database) as db, transaction(db):
-        db.execute('INSERT INTO task_events(task_id,run_id,event_type,state_version,occurred_at,payload_json) VALUES (?,?,?,?,?,?)',('task-1','run-1','state_changed',0,NOW,'{}'))
+        db.execute('INSERT INTO task_events(task_id,run_id,event_type,state_version,occurred_at,payload_json) VALUES (?,?,?,?,?,?)',('task-1','run-1','wait_registered',0,NOW,'{}'))
         with connect(database) as reader: assert reader.execute('SELECT COUNT(*) FROM task_events').fetchone()[0]==2
 
 
@@ -100,4 +100,4 @@ def test_invalid_fraction_timestamp_is_rejected(database):
     with pytest.raises(sqlite3.IntegrityError):
         with connect(database) as db,transaction(db):
             seed(db)
-            db.execute("INSERT INTO task_events(task_id,run_id,event_type,state_version,occurred_at,payload_json) VALUES ('task-1','run-1','state_changed',0,'2026-09-29T00:00:00.123xyzZ','{}')")
+            db.execute("INSERT INTO task_events(task_id,run_id,event_type,state_version,occurred_at,payload_json) VALUES ('task-1','run-1','wait_registered',0,'2026-09-29T00:00:00.123xyzZ','{}')")

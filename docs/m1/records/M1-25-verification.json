@@ -1,0 +1,100 @@
+{
+  "task": "M1-25",
+  "status": "VERIFIED",
+  "verified_at": "2026-10-03T12:18:50.772380+00:00",
+  "scope": "C1-01 debug-derived fixed arXiv v1 public metadata development acceptance",
+  "formal_benchmark_score": false,
+  "full_c1_01_pass_claim": false,
+  "m1_verified_count": 25,
+  "m1_total_count": 25,
+  "regression": {
+    "python_tests": 3830,
+    "frontend_tests": 59,
+    "integration_reports": 27,
+    "passed": true,
+    "provenance": "Full Python report reused only under unchanged frozen execution hashes; see retained check-v3-provenance.json."
+  },
+  "real_run": {
+    "task_id": "task-389696abcd8e47ccac336fd55dcb01e4",
+    "run_id": "run-d430658e0dfe43528fac19058808d51d",
+    "state": "SUCCEEDED",
+    "created_via": "production natural-language UI compiler with requested fields completed in UI",
+    "started_via": "production UI",
+    "executor": "default Worker LangGraph executor and managed public browser",
+    "source_url": "https://arxiv.org/abs/2307.13854v1",
+    "field_checks_passed": 26,
+    "provider": "DeepSeek",
+    "provider_calls": 3,
+    "compilation_calls": 1,
+    "run_model_calls": 2,
+    "input_tokens": 16954,
+    "output_tokens": 432,
+    "actions": 1,
+    "content_pages": 1,
+    "execution_wall_seconds": 6.101,
+    "cost": "UNKNOWN_UNPRICED",
+    "writes": 0
+  },
+  "human_review": {
+    "status": "PASS",
+    "confirmation": "全部一致",
+    "source_url": "https://arxiv.org/abs/2307.13854v1",
+    "confirmed_fields": {
+      "canonical_id": "2307.13854",
+      "version": "v1",
+      "title": "WebArena: A Realistic Web Environment for Building Autonomous Agents",
+      "authors": [
+        "Shuyan Zhou",
+        "Frank F. Xu",
+        "Hao Zhu",
+        "Xuhui Zhou",
+        "Robert Lo",
+        "Abishek Sridhar",
+        "Xianyi Cheng",
+        "Yonatan Bisk",
+        "Daniel Fried",
+        "Uri Alon",
+        "Graham Neubig"
+      ],
+      "first_published_at": "2023-07-25T22:59:32Z",
+      "revised_at": null,
+      "source_url": "https://arxiv.org/abs/2307.13854v1"
+    },
+    "date_mapping": {
+      "first_submitted_at": "first_published_at",
+      "requested_version_submitted_at": "first_published_at for requested v1",
+      "revised_at": "null because requested v1 is the original submission, not a revision"
+    },
+    "kind": "Post-run source comparison, not runtime takeover"
+  },
+  "integrity": {
+    "frozen_execution_files_unchanged": 348,
+    "protected_paths_unchanged": 1223,
+    "public_report_artifacts_verified": 12,
+    "retained_data_artifacts_verified": 15,
+    "observed_descendants_exited": 114,
+    "secret_export_scan": "PASS",
+    "independent_postexit_audit": "PASS",
+    "owned_fixture_cancel_and_restart_recovery": "PASS"
+  },
+  "retained_report_sha256": {
+    "execution-inputs-v4.json": "8d29f1954e7ecdda42b9918f0f89b10fa37b6ffd0a075aeafc6cc0c733515882",
+    "check-v3-summary.json": "3760abbb4e1a94c288b3ffb842b8bd7273dd07238f1ca32968bca62d48fb3809",
+    "check-v3-provenance.json": "e2f7303e8ff12159453e0e055cfd33343f70a111979717c77f437c774e1f502e",
+    "public-business-v1/report.json": "b6702ec3505931891c2f4d27a2a0ba12855bd12dfa6cd8b392526bee20ef1887",
+    "public-business-v1/result.json": "f3dde4298ce67002a5387a21b0ff568d668bc19d372fd84bb08e5e33765829be",
+    "public-business-postexit-integrity-v1.json": "a9e6ab8326830f18a01c4ed50ef3a95a00e3371f01ccd8714043b065c69afaa3",
+    "independent-business-audit-v1.json": "779bda9353b808677ca55105f561e01c573d7f1cffc8eeec7cbb00bd03c166c5",
+    "human-original-review-v1.json": "8d8f8c9442da25a29c3e06eb91d77ca62549680b2550525a90519db55de896f2",
+    "acceptance-gates-v11.json": "907a60b77eb339c8c6cd43ec050d69a420866595a5b5f92f9372484dd338f38e",
+    "input-boundary-audit.json": "12c1ac56d293ae000b4623f253ab132d768ef17e729ec1540255a16666587f2d"
+  },
+  "publication_boundary": {
+    "raw_verification_directories": "retained locally",
+    "databases_private_evidence_logs_credentials": "not published",
+    "protected_m0_evaluator_material": "not published",
+    "preparatory_context_blindness": false,
+    "preparation_incident": "A preparatory broad source search accidentally returned evaluator-only abstract matches. No continued reading, use or product-model transmission; no formal blindness claim.",
+    "real_runner_clone_limitation": "Explicit real-loop probe requires local M0 read-denial target files and historical M1-24 directory. Normal application startup and owned-fixture checks are independent of these protected inputs."
+  }
+}

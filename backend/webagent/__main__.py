@@ -25,10 +25,28 @@ def main() -> None:
     migration = commands.add_parser("migrate", help="Apply numbered business database migrations")
     migration.add_argument("--target", type=int, help="Optional known target version; no downgrades")
     args = parser.parse_args()
+    diagnostic_logger = None
+    if args.command in ('api', 'worker'):
+        from .observability.standard import install_safe_standard_logging
+        diagnostic_logger = install_safe_standard_logging(Settings.from_env().data_dir, args.command)
+    try:
+        execute(args)
+    except Exception as error:
+        if diagnostic_logger is None:
+            raise
+        from .observability.logging import safe_error_class
+        diagnostic_logger.emit('service_failed', service=args.command, error_class=safe_error_class(error))
+        print(json.dumps({'event': 'service_failed', 'service': args.command,
+                          'error_class': safe_error_class(error)}), flush=True)
+        raise SystemExit(1) from None
+
+
+def execute(args):
     if args.command == "api":
         import uvicorn
+        os.environ["WEBAGENT_API_PORT"] = str(args.port)
         uvicorn.run("webagent.api:create_app", factory=True, host="127.0.0.1",
-                    port=args.port, access_log=False)
+                    port=args.port, access_log=False, log_config=None)
     elif args.command == "worker":
         from .worker import run_worker
         asyncio.run(run_worker(Settings.from_env(), once=args.once))
@@ -44,4 +62,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -9,7 +9,7 @@ from .connection import StorageBusyError, connect, transaction
 
 APPLICATION_ID = 0x57414231  # WAB1; never claim a graph or arbitrary SQLite file.
 SQL_DIR = Path(__file__).with_name("sql")
-MIGRATIONS = ("0001_core.sql", "0002_resources_quotas.sql")
+MIGRATIONS = ("0001_core.sql", "0002_resources_quotas.sql", "0003_state_events.sql", "0004_task_api.sql", "0005_model_calls.sql", "0006_settings_snapshots.sql", "0007_task_compilations.sql", "0008_browser_sessions.sql", "0009_identities.sql", "0010_scheduler.sql", "0011_budgets.sql", "0012_gateway.sql", "0013_evidence.sql", "0014_verification.sql", "0015_graph_runtime.sql", "0016_graph_recovery.sql", "0017_run_controls.sql", "0018_write_protocol.sql")
 LATEST_VERSION = len(MIGRATIONS)
 
 
@@ -76,32 +76,42 @@ def _migrate_once(path: Path, *, target: int | None = None, busy_timeout_ms: int
     with connect(path, busy_timeout_ms=busy_timeout_ms) as db:
         # Refuse foreign files before changing their journal mode.
         db.execute("BEGIN")
-        inspect(db, scripts)
+        inspected_version = inspect(db, scripts)
         db.execute("COMMIT")
         if db.execute("PRAGMA journal_mode=WAL").fetchone()[0] != "wal":
             raise MigrationError("Business database must support WAL")
-        with transaction(db):
-            # Repeat after taking the SQLite write lock: another process may
-            # have migrated while this one waited. No Python lock is needed.
-            before = inspect(db, scripts)
-            if target < before:
-                raise MigrationError("Downgrades are not supported")
-            if before == 0:
-                db.execute("""CREATE TABLE schema_migrations (
-                    version INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE,
-                    sha256 TEXT NOT NULL, schema_sha256 TEXT NOT NULL,
-                    applied_at TEXT NOT NULL) STRICT""")
-                db.execute(f"PRAGMA application_id={APPLICATION_ID}")
-            for version in range(before + 1, target + 1):
-                name, script = scripts[version - 1]
-                for statement in statements(script):
-                    db.execute(statement)
-                db.execute("INSERT INTO schema_migrations VALUES (?, ?, ?, ?, ?)",
-                           (version, name, digest(script), schema_digest(db),
-                            datetime.now(timezone.utc).isoformat(timespec="microseconds").replace('+00:00', 'Z')))
-                db.execute(f"PRAGMA user_version={version}")
-            if db.execute("PRAGMA foreign_key_check").fetchone() is not None:
-                raise MigrationError("Migration introduced foreign key violations")
+        # SQL17 widens a parent table CHECK using SQLite's standard rebuild.
+        # FK enforcement must be changed before BEGIN; checks remain explicit
+        # on both the old schema and the complete provisional replacement.
+        rebuild_events = inspected_version < 17 <= target
+        if rebuild_events:
+            db.execute('PRAGMA foreign_keys=OFF')
+        try:
+            with transaction(db):
+                # Repeat after taking the SQLite write lock: another process
+                # may have migrated while this one waited.
+                before = inspect(db, scripts)
+                if target < before:
+                    raise MigrationError("Downgrades are not supported")
+                if before == 0:
+                    db.execute("""CREATE TABLE schema_migrations (
+                        version INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE,
+                        sha256 TEXT NOT NULL, schema_sha256 TEXT NOT NULL,
+                        applied_at TEXT NOT NULL) STRICT""")
+                    db.execute(f"PRAGMA application_id={APPLICATION_ID}")
+                for version in range(before + 1, target + 1):
+                    name, script = scripts[version - 1]
+                    for statement in statements(script):
+                        db.execute(statement)
+                    db.execute("INSERT INTO schema_migrations VALUES (?, ?, ?, ?, ?)",
+                               (version, name, digest(script), schema_digest(db),
+                                datetime.now(timezone.utc).isoformat(timespec="microseconds").replace('+00:00', 'Z')))
+                    db.execute(f"PRAGMA user_version={version}")
+                if db.execute("PRAGMA foreign_key_check").fetchone() is not None:
+                    raise MigrationError("Migration introduced foreign key violations")
+        finally:
+            if rebuild_events:
+                db.execute('PRAGMA foreign_keys=ON')
         return {"previous_version": before, "schema_version": target, "applied": target - before}
 
 

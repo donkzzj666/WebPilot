@@ -1,6 +1,6 @@
 # M1-01 依赖版本与许可清单
 
-生成时间（UTC）：2026-09-29T06:00:47.958943+00:00。由 `scripts/dependencies/build_manifest.py` 离线读取已安装元数据与锁文件生成。
+生成时间（UTC）：2026-10-01T11:29:09.257339+00:00。由 `scripts/dependencies/build_manifest.py` 离线读取已安装元数据与锁文件生成。
 
 仅在依赖升级并完成验证后显式更新；日常启动不重写。使用 `.venv/bin/python scripts/dependencies/build_manifest.py --check` 检查漂移。
 
@@ -15,13 +15,13 @@
 | 前端 Node | 24.19.0；来自 `.node-version` 与 `.runtime/node --version` |
 | npm | 10.8.2；核对 frontend/package.json 的 packageManager |
 | Playwright 内部 Node driver | 24.21.0；Playwright wheel 自带，与前端 Node 独立 |
-| Python 已安装依赖 | 59 项，包含运行与开发工具 |
+| Python 已安装依赖 | 62 项，包含运行与开发工具 |
 | npm 锁定依赖 | 70 项，包含本平台未安装的 optional 包 |
 
 | 锁定输入 | SHA-256 |
 | --- | --- |
-| `requirements/requirements.lock` | `63cdf1b2bfa9a8c946ebe48de2f88dea4e205dbbaabac17eee33067f3df9b300` |
-| `requirements/requirements-dev.lock` | `ba1ffc965a5c3b4a9e2ac142143b960ea249ba72728d9552029b6825878bfe47` |
+| `requirements/requirements.lock` | `f59760b7dc80f8fcc3806e8330b064c7f36012712d5cbe0659d5690f6dc180d2` |
+| `requirements/requirements-dev.lock` | `fa2ac89922c115cf9bc80914ba1d1f34c76a76430ea4e3dbd07bb262a6be6975` |
 | `frontend/package-lock.json` | `200655fbde9f2b4a3b0027a6d32e6a2b6d53556c0e74e15b0b4773c128bc95fb` |
 | `.python-version` | `f50159fad3f4319868eb38717b91d55843c41e9803014c8de05e116a6d0bcfdc` |
 | `.node-version` | `7e8a2fa94951112b894a3dbe3d05efef5e9263741fa49125f0a70f40fedab4cc` |
@@ -38,8 +38,10 @@
 | anyio | 4.15.1 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
 | build | 1.6.1 | MIT | requirements/requirements-dev.lock |
 | certifi | 2026.7.22 | MPL-2.0 | requirements/requirements.lock, requirements/requirements-dev.lock |
+| cffi | 2.1.1 | MIT-0 | requirements/requirements.lock, requirements/requirements-dev.lock |
 | charset-normalizer | 3.5.1 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
 | click | 8.5.0 | BSD-3-Clause | requirements/requirements.lock, requirements/requirements-dev.lock |
+| cryptography | 50.0.1 | Apache-2.0 OR BSD-3-Clause | requirements/requirements.lock, requirements/requirements-dev.lock |
 | distro | 1.9.0 | Apache License, Version 2.0 | requirements/requirements.lock, requirements/requirements-dev.lock |
 | fastapi | 0.141.1 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
 | greenlet | 3.5.6 | MIT AND PSF-2.0 | requirements/requirements.lock, requirements/requirements-dev.lock |
@@ -67,6 +69,7 @@
 | pip-tools | 7.6.1 | BSD | requirements/requirements-dev.lock |
 | playwright | 1.63.0 | Apache-2.0 | requirements/requirements.lock, requirements/requirements-dev.lock |
 | pluggy | 1.6.0 | MIT | requirements/requirements-dev.lock |
+| pycparser | 3.0 | BSD-3-Clause | requirements/requirements.lock, requirements/requirements-dev.lock |
 | pydantic | 2.13.5 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
 | pydantic_core | 2.46.5 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
 | pyee | 13.0.1 | MIT | requirements/requirements.lock, requirements/requirements-dev.lock |
@@ -198,4 +201,4 @@ Playwright driver 附带的 Node 及第三方声明：
 
 此清单记录依赖身份和许可来源，不表示这些包的全部功能均被产品启用。LangSmith 是 LangGraph 的传递依赖；运行入口在框架导入前关闭外部 tracing，实际出站验证另见 M1-01 集成证据。
 
-依赖和 Chromium 的锁定不能代替 M1-12 网络防护，也不代表 FR-01 的 M1-16 产品图与新进程恢复验收完成。
+依赖和 Chromium 的锁定不能代替网络和图执行验收。M1-16 自定义图及安全等待证据见 [M1-16 验收记录](records/M1-16.md)；M1-17 的双库检查点、只读崩溃恢复及 FR-02 证据见 [M1-17 验收记录](records/M1-17.md)。

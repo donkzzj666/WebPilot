@@ -286,7 +286,7 @@ def dependency_document(build: dict, browsers: dict, generated_at: str) -> str:
     lines.extend(f"- `{item['path']}`" for item in build["playwright_driver_node"]["license_resources"])
     lines += ["", "## 核查边界", "",
               "此清单记录依赖身份和许可来源，不表示这些包的全部功能均被产品启用。LangSmith 是 LangGraph 的传递依赖；运行入口在框架导入前关闭外部 tracing，实际出站验证另见 M1-01 集成证据。", "",
-              "依赖和 Chromium 的锁定不能代替 M1-12 网络防护，也不代表 FR-01 的 M1-16 产品图与新进程恢复验收完成。", ""]
+              "依赖和 Chromium 的锁定不能代替网络和图执行验收。M1-16 自定义图及安全等待证据见 [M1-16 验收记录](records/M1-16.md)；M1-17 的双库检查点、只读崩溃恢复及 FR-02 证据见 [M1-17 验收记录](records/M1-17.md)。", ""]
     if build["unlocked_installed_python_packages"]:
         lines += ["未出现在两个依赖锁中的已安装 Python 包：" + ", ".join(build["unlocked_installed_python_packages"]) + "。", ""]
     return "\n".join(lines)

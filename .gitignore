@@ -13,3 +13,11 @@ frontend/dist/
 .env
 .env.*
 !.env.example
+
+# Local control-plane credentials must never become artifacts or source.
+**/.security/
+
+# Raw verification runs remain local; publish reviewed summaries instead.
+/artifacts/verification/M1-*/
+**/.private/
+/docs/m0/evaluation/evaluator-only/
